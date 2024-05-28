@@ -1,7 +1,9 @@
 import React from 'react'
 import './LandingHero.css'
+import { useNavigate } from 'react-router-dom'
 
 function LandingHero() {
+    const navigate = useNavigate();
   return (
     <div className='landing-hero'>
         <div className="landing-hero-left">
@@ -19,7 +21,7 @@ function LandingHero() {
                 <div className='landing-hero-left-des'>
                     Network with peers, Learn with community and get access to Internships/ Jobs
                 </div>
-                <button className="landing-hero-btn">
+                <button className="landing-hero-btn" onClick={()=>navigate('/getstarted')}>
                     Get Started &rarr;
                 </button>
             </div>
