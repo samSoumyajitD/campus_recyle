@@ -32,7 +32,7 @@
 .landing-numbers-element-underline{
     margin: 5px 0px;
     height: 3px;
-    width: 80%;
+    width: 70% !important;
     background-color: #478df3;
 }
 

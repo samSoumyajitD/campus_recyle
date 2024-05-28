@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import './LandingNavbar.css'
 import {Menu, Plus, ChevronDown} from 'lucide-react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 function LandingNavbar() {
+    const navigate = useNavigate();
     const [showHamNav, setShowHamNav] = useState(false);
     const toggleShowNav = () => {
         if(showHamNav){
@@ -43,8 +44,8 @@ function LandingNavbar() {
                 </div>
             </div>
             <div className='landing-navbar-right-btn-sec'>
-                <button className='landing-navbar-right-btn-login'>Log in</button>
-                <button className='landing-navbar-right-btn-signup'>Sign Up</button>
+                <button className='landing-navbar-right-btn-login' onClick={e => navigate('/getstarted')}>Log in</button>
+                <button className='landing-navbar-right-btn-signup' onClick={e => navigate('/getstarted')}>Sign Up</button>
             </div>
             <Menu className='landing-navbar-right-hammenu'size={30} onClick={toggleShowNav}/>
         </div>
