@@ -4,6 +4,9 @@ import Googleicon from "../../../images/google-icon.png";
 import { Link } from "react-router-dom";
 import Carousel from "react-bootstrap/Carousel";
 
+import { authroutes } from "../../../apis/apis";
+import { apiConnector } from "../../../utils/Apiconnecter";
+
 function ActivitySection() {
   const [activity, setActivity] = useState(false);
   const toggleActivity = () => {
@@ -53,15 +56,13 @@ function ActivitySection() {
     e.preventDefault();
     console.log("controll reached")
     try {
-      const response = await fetch("https://nitaspace.onrender.com/api/v1/auth/login", {
-        method: 'POST',
-        headers:{
-          "Content-Type": "application/json",
-        },
-        body: loginDetails
-      })
+      const responseObj = await apiConnector(
+        "POST",
+        authroutes.LOGIN_API,
+        loginDetails
+      )
 
-      const responseObj = await response.json();
+      
       console.log(responseObj);
       if(responseObj.success){
         localStorage.setItem("campusrecycletoken", responseObj.token)
