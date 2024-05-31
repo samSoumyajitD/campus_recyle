@@ -1,13 +1,28 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./ActivitySection.css";
 import Googleicon from "../../../images/google-icon.png";
 import { Link } from "react-router-dom";
 import Carousel from "react-bootstrap/Carousel";
+import { Eye } from 'lucide-react';
 
 import { authroutes } from "../../../apis/apis";
 import { apiConnector } from "../../../utils/Apiconnecter";
 
 function ActivitySection() {
+  const [errorMsg, setErrorMsg] = useState({
+    msg: '',
+    type: ''
+  });
+
+  const [passView, setPassView] = useState(false);
+  const togglePassView = () => {
+    if(passView){
+      setPassView(false);
+    }else{
+      setPassView(true);
+    }
+  }
+  
   const [activity, setActivity] = useState(false);
   const toggleActivity = () => {
     if (activity) {
@@ -15,15 +30,6 @@ function ActivitySection() {
       setVerificationStage(false);
     } else {
       setActivity(true);
-    }
-  };
-
-  const [verificationStage, setVerificationStage] = useState(false);
-  const toggleVerificationStage = () => {
-    if (verificationStage) {
-      setVerificationStage(false);
-    } else {
-      setVerificationStage(true);
     }
   };
 
@@ -38,11 +44,81 @@ function ActivitySection() {
     otp: "",
     accounttype: "Buyer"
   })
+
+  const [verificationStage, setVerificationStage] = useState(false);
+  
+  const toggleVerificationStage = async(e) => {
+    e.preventDefault();
+    try {
+      const response = await apiConnector(
+        "POST",
+        authroutes.SEND_OTP_API,
+        {
+          email: signUpDetails.email
+        }
+      )
+      console.log(response.data);
+      if(response.data.success){
+        setSignUpDetails({...signUpDetails, otp: response.data.data.otp});
+        if (verificationStage) {
+          setVerificationStage(false);
+        } else {
+          setVerificationStage(true);
+        }
+      }else{
+        if(response.data.message === "User already Registered"){
+          setErrorMsg({
+            msg: "User already Registered",
+            type: 'email already exists'
+          })
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
   const handleOnchangeSignup = (e) => {
     setSignUpDetails({...signUpDetails, [e.target.name]: e.target.value})
   }
-  const handleSignup = () => {
 
+  const handleSignup = async(e) => {
+    e.preventDefault();
+    if(signUpDetails.otp !== otp){
+      return setErrorMsg({msg: "Incorrect OTP", type: "otp did not matched"})
+    }
+    try {
+      const responseObj = await apiConnector(
+        "POST",
+        authroutes.SIGNUP_API,
+        signUpDetails
+      )
+
+      console.log(responseObj.data);
+      if(responseObj.data.success){
+        // localStorage.setItem("campusrecycletoken", responseObj.token)
+        console.log("success");
+        setSignUpDetails({
+          email: "",
+          firstname: "",
+          lastname: "",
+          password: "",
+          confirmpassword: "",
+          otp: "",
+          accounttype: "Buyer"
+        })
+      }else{
+        if(responseObj.data.message === "User already Registered"){
+          setErrorMsg({
+            msg: "User already Registered",
+            type: 'email already exists'
+          })
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   const [loginDetails, setLoginDetails] = useState({
@@ -54,23 +130,37 @@ function ActivitySection() {
   }
   const handleLogin = async(e) => {
     e.preventDefault();
-    console.log("controll reached")
     try {
       const responseObj = await apiConnector(
         "POST",
         authroutes.LOGIN_API,
         loginDetails
       )
-
-      
       console.log(responseObj);
-      if(responseObj.success){
-        localStorage.setItem("campusrecycletoken", responseObj.token)
+      if(responseObj.data.success){
+        localStorage.setItem("campusrecycletoken", responseObj.data.token)
+      }else{
+        if(responseObj.data.message === "User Not Registered"){
+          setErrorMsg({
+            msg: "User Not Registered",
+            type: 'email does not exists'
+          })
+        }
       }
     } catch (error) {
       console.log(error);
     }
   }
+
+
+  const [passMatched, setPassMatched] = useState(false);
+  useEffect(()=>{
+    if(signUpDetails.password !== signUpDetails.confirmpassword){
+      setPassMatched(false);
+    }else{
+      setPassMatched(true);
+    }
+  })
 
   return (
     <div className="activity-body">
@@ -90,12 +180,20 @@ function ActivitySection() {
                 </button>
               </div>
               <span>or use your email for registration</span>
-              <input type="text" placeholder="First Name" name="firstname" value={signUpDetails.firstname} onChange={handleOnchangeSignup}/>
-              <input type="text" placeholder="Last Name" name="lastname" value={signUpDetails.lastname} onChange={handleOnchangeSignup}/>
-              <input type="email" placeholder="Email" name="email" value={signUpDetails.email} onChange={handleOnchangeSignup}/>
-              <input type="password" placeholder="Password" name="password" value={signUpDetails.password} onChange={handleOnchangeSignup}/>
-              <input type="password" placeholder="Confirm Password" name="confirmpassword" value={signUpDetails.confirmpassword} onChange={handleOnchangeSignup}/>
-              <button type="submit">Sign Up</button>
+              <input type="text" placeholder="First Name" name="firstname" value={signUpDetails.firstname} onChange={handleOnchangeSignup} required/>
+              <input type="text" placeholder="Last Name" name="lastname" value={signUpDetails.lastname} onChange={handleOnchangeSignup} required/>
+              <input type="email" placeholder="Email" name="email" value={signUpDetails.email} onChange={handleOnchangeSignup} required/>
+              <p className="login-signup-error-msg">{errorMsg.type === 'email already exists' ? errorMsg.msg : ''}</p>
+              <div className="login-signup-password-div">
+                <input type={passView ? "text" : "password"} placeholder="Password" name="password" value={signUpDetails.password} onChange={handleOnchangeSignup} required/>
+                <Eye size={20} style={{cursor: 'pointer'}} onClick={togglePassView}/>
+              </div>
+              <div className="login-signup-password-div">
+                <input type={passView ? "text" : "password"} placeholder="Confirm Password" name="confirmpassword" value={signUpDetails.confirmpassword} onChange={handleOnchangeSignup} required/>
+                <Eye size={20} style={{cursor: 'pointer'}} onClick={togglePassView}/>
+              </div>
+              <p className="login-signup-error-msg">{!passMatched && 'Password not matched'}</p>
+              <button type="submit" className={passMatched ? '' : 'btn-disabled'} disabled={!passMatched}>Sign Up</button>
               <p className="activity-donthaveaccnt">
                 Already have an account?{" "}
                 <Link onClick={toggleActivity}>Sign in</Link>
@@ -106,7 +204,8 @@ function ActivitySection() {
             verificationStage &&
             <form onSubmit={handleSignup}>
               <h1>Verify Mobile</h1>
-              <input type="text" placeholder="First Name" value={otp} onChange={(e)=>setOtp(e.target.value)}/>
+              <input type="text" placeholder="First Name" value={otp} onChange={(e)=>setOtp(e.target.value)} required/>
+              <p className="login-signup-error-msg">{errorMsg.type === 'otp did not matched' ? errorMsg.msg : ''}</p>
               <button type="submit">Verify</button>
               <p className="activity-donthaveaccnt">
                 Already have an account?{" "}
@@ -125,8 +224,13 @@ function ActivitySection() {
               </button>
             </div>
             <span>or use your account</span>
-            <input type="email" placeholder="Email" name="email" value={loginDetails.email} onChange={handleOnchangelogin}/>
-            <input type="password" placeholder="Password" name="password" value={loginDetails.password} onChange={handleOnchangelogin}/>
+            <input type="email" placeholder="Email" name="email" value={loginDetails.email} onChange={handleOnchangelogin} required/>
+            <p className="login-signup-error-msg">{errorMsg.type === 'email does not exists' ? errorMsg.msg : ''}</p>
+            <div className="login-signup-password-div">
+            <input type={passView ? "text" : "password"} placeholder="Password" name="password" value={loginDetails.password} onChange={handleOnchangelogin} required/>
+              <Eye size={20} style={{cursor: 'pointer'}} onClick={togglePassView}/>
+            </div>
+            <p className="login-signup-error-msg">{errorMsg.type === 'wrong password' ? errorMsg.msg : ''}</p>
             <Link>Forgot your password?</Link>
             <button type="submit">Sign In</button>
             <p className="activity-donthaveaccnt">
