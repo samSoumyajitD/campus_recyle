@@ -272,3 +272,50 @@
 .carousel-control-prev{
 	justify-content: start !important;
 }
+
+.login-signup-error-msg{
+	font-size: 14px;
+	color: rgb(255, 35, 35);
+	text-align: left;
+	width: 100%;
+	padding: 0px 5px;
+}
+
+.btn-disabled{
+	background-color: #87ffdb !important;
+	border-color: #87ffdb !important;
+	cursor: not-allowed !important;
+}
+
+.login-signup-password-div{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+}
+
+.login-signup-password-div svg{
+	position: absolute;
+	right: 60px;
+}
+
+@media (max-width: 540px) {
+    .overlay-container{
+		display: none;
+	}
+	.sign-in-container{
+		width: 100%;
+	}
+	.sign-up-container{
+		width: 100%;
+	}
+	.container{
+		width: 90% !important;
+	}
+	.container.right-panel-active{
+		transform: translateX(0) !important;
+	}
+	.container.right-panel-active .sign-up-container{
+		transform: translate(0) !important;
+	}
+}
