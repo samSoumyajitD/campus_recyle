@@ -4,11 +4,13 @@ import Googleicon from "../../../images/google-icon.png";
 import { Link } from "react-router-dom";
 import Carousel from "react-bootstrap/Carousel";
 import { Eye } from 'lucide-react';
+import Spinner from "react-bootstrap/Spinner";
 
 import { authroutes } from "../../../apis/apis";
 import { apiConnector } from "../../../utils/Apiconnecter";
 
 function ActivitySection() {
+  const [loading, setloading] = useState(false);
   const [errorMsg, setErrorMsg] = useState({
     msg: '',
     type: ''
@@ -49,6 +51,7 @@ function ActivitySection() {
   
   const toggleVerificationStage = async(e) => {
     e.preventDefault();
+    setloading(true);
     try {
       const response = await apiConnector(
         "POST",
@@ -62,8 +65,10 @@ function ActivitySection() {
         setSignUpDetails({...signUpDetails, otp: response.data.data.otp});
         if (verificationStage) {
           setVerificationStage(false);
+          setloading(false);
         } else {
           setVerificationStage(true);
+          setloading(false);
         }
       }else{
         if(response.data.message === "User already Registered"){
@@ -72,9 +77,11 @@ function ActivitySection() {
             type: 'email already exists'
           })
         }
+        setloading(false);
       }
     } catch (error) {
       console.log(error);
+      setloading(false);
     }
   };
 
@@ -85,8 +92,10 @@ function ActivitySection() {
 
   const handleSignup = async(e) => {
     e.preventDefault();
+    setloading(true);
     if(signUpDetails.otp !== otp){
-      return setErrorMsg({msg: "Incorrect OTP", type: "otp did not matched"})
+      setloading(false);
+      return setErrorMsg({msg: "Incorrect OTP", type: "otp did not matched"});
     }
     try {
       const responseObj = await apiConnector(
@@ -108,6 +117,7 @@ function ActivitySection() {
           otp: "",
           accounttype: "Buyer"
         })
+        setloading(false);
       }else{
         if(responseObj.data.message === "User already Registered"){
           setErrorMsg({
@@ -115,9 +125,11 @@ function ActivitySection() {
             type: 'email already exists'
           })
         }
+        setloading(false);
       }
     } catch (error) {
       console.log(error);
+      setloading(false);
     }
   }
 
@@ -130,6 +142,7 @@ function ActivitySection() {
   }
   const handleLogin = async(e) => {
     e.preventDefault();
+    setloading(true);
     try {
       const responseObj = await apiConnector(
         "POST",
@@ -138,7 +151,8 @@ function ActivitySection() {
       )
       console.log(responseObj);
       if(responseObj.data.success){
-        localStorage.setItem("campusrecycletoken", responseObj.data.token)
+        localStorage.setItem("campusrecycletoken", responseObj.data.token);
+        setloading(false);
       }else{
         if(responseObj.data.message === "User Not Registered"){
           setErrorMsg({
@@ -146,9 +160,15 @@ function ActivitySection() {
             type: 'email does not exists'
           })
         }
+        setLoginDetails({
+          email: "",
+          password: ""
+        })
+        setloading(false);
       }
     } catch (error) {
       console.log(error);
+      setloading(false);
     }
   }
 
@@ -165,16 +185,16 @@ function ActivitySection() {
   return (
     <div className="activity-body">
       <div
-        class={`container ${activity ? "right-panel-active" : ""}`}
+        className={`container ${activity ? "right-panel-active" : ""}`}
         id="container"
       >
-        <div class="form-container sign-up-container">
+        <div className="form-container sign-up-container">
           <span className="activity-logo">Campus Recycle</span>
           {
             !verificationStage &&
             <form onSubmit={toggleVerificationStage}>
               <h1>Create Account</h1>
-              <div class="social-container">
+              <div className="social-container">
                 <button className="activity-signin-google-btn">
                   <img src={Googleicon} className="" alt="" /> Sign up with Google
                 </button>
@@ -193,7 +213,7 @@ function ActivitySection() {
                 <Eye size={20} style={{cursor: 'pointer'}} onClick={togglePassView}/>
               </div>
               <p className="login-signup-error-msg">{!passMatched && 'Password not matched'}</p>
-              <button type="submit" className={passMatched ? '' : 'btn-disabled'} disabled={!passMatched}>Sign Up</button>
+              <button type="submit" className={`${passMatched ? '' : 'btn-disabled'} ${loading ? 'btn-disabled' : ''}`} disabled={!passMatched}>Sign Up {loading && <Spinner className="login-signup-btn-spinner" size="sm" animation="border" />}</button>
               <p className="activity-donthaveaccnt">
                 Already have an account?{" "}
                 <Link onClick={toggleActivity}>Sign in</Link>
@@ -206,7 +226,7 @@ function ActivitySection() {
               <h1>Verify Mobile</h1>
               <input type="text" placeholder="First Name" value={otp} onChange={(e)=>setOtp(e.target.value)} required/>
               <p className="login-signup-error-msg">{errorMsg.type === 'otp did not matched' ? errorMsg.msg : ''}</p>
-              <button type="submit">Verify</button>
+              <button type="submit" className={loading ? 'btn-disabled' : ''}>Verify {loading && <Spinner className="login-signup-btn-spinner" size="sm" animation="border" />}</button>
               <p className="activity-donthaveaccnt">
                 Already have an account?{" "}
                 <Link onClick={toggleActivity}>Sign in</Link>
@@ -214,11 +234,11 @@ function ActivitySection() {
             </form>
           }
         </div>
-        <div class="form-container sign-in-container">
+        <div className="form-container sign-in-container">
           <span className="activity-logo">Campus Recycle</span>
           <form onSubmit={handleLogin}>
             <h1>Sign in</h1>
-            <div class="social-container">
+            <div className="social-container">
               <button className="activity-signin-google-btn">
                 <img src={Googleicon} className="" alt="" /> Sign in with Google
               </button>
@@ -231,17 +251,17 @@ function ActivitySection() {
               <Eye size={20} style={{cursor: 'pointer'}} onClick={togglePassView}/>
             </div>
             <p className="login-signup-error-msg">{errorMsg.type === 'wrong password' ? errorMsg.msg : ''}</p>
-            <Link>Forgot your password?</Link>
-            <button type="submit">Sign In</button>
+            <Link to='/forgotpassword'>Forgot your password?</Link>
+            <button type="submit" className={loading ? 'btn-disabled' : ''}>Sign In {loading && <Spinner className="login-signup-btn-spinner" size="sm" animation="border" />}</button>
             <p className="activity-donthaveaccnt">
               Don't have an account?{" "}
               <Link onClick={toggleActivity}>Sign up</Link>
             </p>
           </form>
         </div>
-        <div class="overlay-container">
+        <div className="overlay-container">
           <div className="overlay">
-            <div class="overlay-panel overlay-left">
+            <div className="overlay-panel overlay-left">
               <Carousel>
                 <Carousel.Item>
                   <img
@@ -263,7 +283,7 @@ function ActivitySection() {
                 </Carousel.Item>
               </Carousel>
             </div>
-            <div class="overlay-panel overlay-right">
+            <div className="overlay-panel overlay-right">
               <Carousel>
                 <Carousel.Item>
                   <img
