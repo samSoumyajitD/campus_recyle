@@ -7,13 +7,15 @@ import LandingReviews from '../components/Landing/Reviews/LandingReviews'
 import LandingFaqs from '../components/Landing/Faqs/LandingFaqs'
 import LandingStartApplying from '../components/Landing/StartApplying/LandingStartApplying'
 import LandingFooter from '../components/Landing/LandingFooter/LandingFooter'
-
+import About from '../components/Landing/About/About'
 function LandingPage() {
   return (
     <>
         <LandingNavbar/>
         <LandingHero/>
+        <About/>
         <LandingNumbers/>
+        
         <LandingHowHelps/>
         <LandingReviews/>
         <LandingFaqs/>

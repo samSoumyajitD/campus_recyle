@@ -1,0 +1,22 @@
+.about{
+  justify-content: center;
+  text-align: center;
+}
+.about_head1{
+  font-size: 32px;
+  line-height: 1.3;
+  color: #131414;
+  font-weight: 400;
+}
+.about_head2{
+  font-size: 32px;
+  line-height: 1.3;
+  color: #00d084;
+  font-weight: 400;
+}
+.about_content{
+  text-align: center;
+  margin: 2rem 8rem;
+  font-size: 22px;
+  color: #abb8c3;
+}
