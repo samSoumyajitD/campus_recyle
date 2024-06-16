@@ -10,6 +10,7 @@ import AccessAccount from './components/LoginSignup/AccessAccount/AccessAccount'
 import ProductView from './screens/ProductView';
 import SellerRegistration from './screens/SellerRegistration';
 import BuyerProfile from './screens/BuyerProfile';
+import SellerDashboard from './screens/SellerDashboard';
 
 function App() {
   return (
@@ -25,7 +26,7 @@ function App() {
         <Route path='/products/:productid' element={<ProductView/>}/>
         <Route path='/seller-registration' element={<SellerRegistration/>}/>
         <Route path='/buyer-profile' element={<BuyerProfile/>}/>
-        <Route path='/seller-dashboard' element={<BuyerProfile/>}/>
+        <Route path='/seller-dashboard' element={<SellerDashboard/>}/>
       </Routes>
     </>
   );

@@ -3,7 +3,7 @@ import BuyerNavbar from "../components/BuyerNavbar/BuyerNavbar";
 import ProductList from "../components/ProductListing/ProductList";
 import { useProducts } from "../context/ProductsProvider";
 import { ChevronDown, ListFilter, Calendar, ArrowDownAZ } from "lucide-react";
-import Fuse from 'fuse.js';
+import Fuse from "fuse.js";
 
 function ProductListing() {
   const products = useProducts();
@@ -15,22 +15,39 @@ function ProductListing() {
   };
 
   const handleSearchOnchangeItem = (e) => {
-    if(e.target.value !== ""){
+    if (e.target.value !== "") {
       const fuse = new Fuse(products.data, options);
       const results = fuse.search(e.target.value);
       console.log("item search result: ", results);
       let searchedProducts = [];
-      for(let result of results){
+      for (let result of results) {
         searchedProducts.push(result.item);
       }
       setAllProducts(searchedProducts);
-    }else{
+    } else {
       setAllProducts(products.data);
     }
-    
   };
 
-  useEffect(()=>{
+  const [isCategoryDropdown, setIsCategoryDropdown] = useState(false);
+
+  const toggleCategoryDropDown = () => {
+    if (isCategoryDropdown) {
+      setIsCategoryDropdown(false);
+    } else {
+      setIsCategoryDropdown(true);
+    }
+  };
+
+  const [categoryFilterText, setCategoryFilterText] = useState('All Categories')
+  const [categoryFilter, setCategoryFilter] = useState('');
+  const handleApplyCategoryFilter = (category, categoryText) => {
+    setCategoryFilterText(categoryText)
+    setCategoryFilter(category);
+    setIsCategoryDropdown(false);
+  }
+
+  useEffect(() => {
     setAllProducts(products.data);
   }, []);
 
@@ -45,8 +62,21 @@ function ProductListing() {
             onChange={handleSearchOnchangeItem}
           />
           <div className="product-search-filter-category-filter">
-            <span>All Categories</span>
-            <ChevronDown color="gray" fontWeight={"20px"} />
+            <div className="clickable" onClick={toggleCategoryDropDown}>
+              <span>{categoryFilterText}</span>
+              <ChevronDown
+                color="gray"
+                fontWeight={"20px"}
+                style={{ rotate: isCategoryDropdown ? "180deg" : "0deg" }}
+              />
+            </div>
+            {isCategoryDropdown && (
+              <div className="categories">
+                <li onClick={()=>handleApplyCategoryFilter('inventory', 'Inventory')}>Inventory</li>
+                <li onClick={()=>handleApplyCategoryFilter('accessories', 'Accessories')}>Accessories</li>
+                <li onClick={()=>handleApplyCategoryFilter('', 'All Categories')}>All Categories</li>
+              </div>
+            )}
           </div>
           <div className="product-search-filter-sortings">
             Filter <ListFilter size={20} />
@@ -55,7 +85,7 @@ function ProductListing() {
           </div>
         </div>
       </div>
-      <ProductList products={allProducts} />
+      <ProductList products={allProducts} categoryFilter={categoryFilter}/>
     </>
   );
 }

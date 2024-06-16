@@ -33,7 +33,7 @@
             },
             "category": {
                 "_id": "665b8daa79c6f997593c55a0",
-                "name": "inventory",
+                "name": "accessories",
                 "products": [
                     "665c267491b488b8b13572eb",
                     "665c268e91b488b8b13572f0",
@@ -77,7 +77,7 @@
             },
             "category": {
                 "_id": "665b8daa79c6f997593c55a0",
-                "name": "inventory",
+                "name": "accessories",
                 "products": [
                     "665c267491b488b8b13572eb",
                     "665c268e91b488b8b13572f0",

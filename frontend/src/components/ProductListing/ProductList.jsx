@@ -6,7 +6,11 @@ function ProductList(props) {
   return (
     <div className="product-list">
       <div className="row">
-        {props.products.map((product) => {
+        {props.products
+        .filter((product)=>{
+          return props.categoryFilter !== "" ? product.category.name === props.categoryFilter : 1;
+        })
+        .map((product) => {
           return <ProductCard product={product} />;
         })}
       </div>

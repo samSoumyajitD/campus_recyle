@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import "./BuyerSidebar.css";
-import { LogOut, Heart, UserRound, ShoppingCart, Package, Star } from 'lucide-react';
+import { LogOut, PackagePlus, UserRound, Pencil, CircleGauge, Package } from 'lucide-react'
 
-function BuyerSidebar() {
+function SellerSidebar() {
   return (
     <div className="buyer-sidebar-main">
       <div className="logo">
@@ -17,32 +16,32 @@ function BuyerSidebar() {
         <nav class="navigation">
           <Link>
             <UserRound size={20}/>
-            <span>My Profile</span>
+            <span>View Profile</span>
           </Link>
           <Link>
-            <Star size={20}/>
-            <span>Your Reviews</span>
+            <Pencil size={20}/>
+            <span>Edit Profile</span>
           </Link>
           <Link>
-            <ShoppingCart size={20}/>
-            <span>Your Orders</span>
+            <CircleGauge size={20}/>
+            <span>Dashboard</span>
           </Link>
           <Link>
-            <Heart size={20}/>
-            <span>Wishlists</span>
+            <PackagePlus size={20}/>
+            <span>Add Product</span>
           </Link>
-          <Link to='/products'>
+          <Link>
             <Package size={20}/>
-            <span>Order Now</span>
+            <span>Active Orders</span>
           </Link>
-          <Link>
+          <Link to='/'>
             <LogOut size={20}/>
             <span>Logout</span>
           </Link>
         </nav>
       </div>
     </div>
-  );
+  )
 }
 
-export default BuyerSidebar;
+export default SellerSidebar

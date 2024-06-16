@@ -10,7 +10,7 @@
   transition: all 0.2s ease;
   width: 247px;
   z-index: 995;
-  padding: 30px 50px;
+  padding: 30px 40px;
   box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.5);
   display: flex;
   flex-direction: column;
@@ -39,6 +39,18 @@
   }
 }
 
+.buyer-sidebar-main .logo{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.buyer-sidebar-main .logo h5{
+  font-size: large;
+}
+
 .buyer-sidebar-navigation{
     display: flex;
     flex-direction: column;
@@ -57,10 +69,18 @@
     text-decoration: none;
     color: rgb(57, 57, 57);
     padding: 5px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    margin-top: 2rem;
 }
 
 .buyer-sidebar-navigation .navigation a:hover{
-    color: rgb(5, 93, 255);
+    color: red;
+}
+
+.buyer-sidebar-navigation .navigation a svg{
+  margin-right: 1rem;
 }
 
 .buyer-sidebar-main .profile-info{
