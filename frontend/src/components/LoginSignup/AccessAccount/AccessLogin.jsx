@@ -11,7 +11,7 @@ const AccessLogin = () => {
       <div className='access-account buyer-account'>
         <div className='access-account-head'>For <span>Companies</span></div>
         <div className='access-account-text'>We are the market–leading technical interview platform to identify and hire developers with the right skills.</div>
-        <button onClick={e => navigate('/login')}>Login</button>
+        <button onClick={e => navigate('/seller-registration')}>Login</button>
         <div className='access-account-below'>Don't have an account?</div>
         <div className='access-link'><Link to='/login'>Sign Up</Link></div>
       </div>

@@ -29,6 +29,7 @@
     display: inline-block;
     position: relative;
     color: black;
+    margin-bottom: 0rem;
 }
 .landing-navbar-left-explore p::after{
     content: '';

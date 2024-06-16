@@ -14,9 +14,10 @@
 	height: 100vh !important;
 }
 
-.activity-body h1 {
+.activity-body h2 {
 	font-weight: 600;
 	margin: 0;
+	font-size: 28px;
 }
 
 .activity-body h2 {

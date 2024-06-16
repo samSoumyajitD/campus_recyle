@@ -4,8 +4,10 @@ import Upskilling from '../../../images/upskilling.png';
 import Hassle from '../../../images/hassle.png';
 import Resume from '../../../images/resume.png';
 import EasyMoney from '../../../images/easymoney.png';
+import { useNavigate } from 'react-router-dom';
 
 function LandingHowHelps() {
+    const navigate = useNavigate();
   return (
     <div className='landing-how-helps'>
         <h4>How Campus Recycle helps you</h4>
@@ -40,7 +42,7 @@ function LandingHowHelps() {
             </div>
         </div>
         <div>
-            <button className="landing-how-helps-btn">Get Started</button>
+            <button className="landing-how-helps-btn" onClick={()=>navigate('/accountoptions')}>Get Started</button>
         </div>
     </div>
   )
