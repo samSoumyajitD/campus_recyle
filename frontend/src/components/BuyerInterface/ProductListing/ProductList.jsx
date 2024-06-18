@@ -1,6 +1,6 @@
 import React from "react";
 import "./ProductList.css";
-import ProductCard from "./ProductCards/ProductCard";
+import ProductCard from "./ProductCard";
 
 function ProductList(props) {
   return (

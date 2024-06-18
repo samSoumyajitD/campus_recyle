@@ -1,9 +1,9 @@
 import React from 'react'
 import './LandingHowHelps.css'
-import Upskilling from '../../../images/upskilling.png';
-import Hassle from '../../../images/hassle.png';
-import Resume from '../../../images/resume.png';
-import EasyMoney from '../../../images/easymoney.png';
+import Upskilling from '../../../../images/upskilling.png';
+import Hassle from '../../../../images/hassle.png';
+import Resume from '../../../../images/resume.png';
+import EasyMoney from '../../../../images/easymoney.png';
 import { useNavigate } from 'react-router-dom';
 
 function LandingHowHelps() {

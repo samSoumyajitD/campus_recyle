@@ -1,17 +1,13 @@
 import React, { useEffect, useState } from "react";
-import "./ActivitySection.css";
 import Googleicon from "../../../images/google-icon.png";
-import { Link, useNavigate } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import Carousel from "react-bootstrap/Carousel";
 import { Eye } from 'lucide-react';
 import Spinner from "react-bootstrap/Spinner";
-
-import { authroutes } from "../../../apis/apis";
 import { apiConnector } from "../../../utils/Apiconnecter";
+import { authroutes } from "../../../apis/apis";
 
-function ActivitySection() {
-  const navigate = useNavigate();
-
+function SellerReg() {
   const [loading, setloading] = useState(false);
   const [errorMsg, setErrorMsg] = useState({
     msg: '',
@@ -26,6 +22,8 @@ function ActivitySection() {
       setPassView(true);
     }
   }
+
+  const navigate = useNavigate();
   
   const [activity, setActivity] = useState(false);
   const toggleActivity = () => {
@@ -117,9 +115,10 @@ function ActivitySection() {
           password: "",
           confirmpassword: "",
           otp: "",
-          accounttype: "Buyer"
+          accounttype: "Seller"
         })
         setloading(false);
+        navigate('/seller-dashboard');
       }else{
         if(responseObj.data.message === "User already Registered"){
           setErrorMsg({
@@ -128,6 +127,7 @@ function ActivitySection() {
           })
         }
         setloading(false);
+
       }
     } catch (error) {
       console.log(error);
@@ -155,6 +155,7 @@ function ActivitySection() {
       if(responseObj.data.success){
         localStorage.setItem("campusrecycletoken", responseObj.data.token);
         setloading(false);
+        navigate('/seller-dashboard');
       }else{
         if(responseObj.data.message === "User Not Registered"){
           setErrorMsg({
@@ -182,7 +183,13 @@ function ActivitySection() {
     }else{
       setPassMatched(true);
     }
-  })
+  });
+
+  useEffect(()=>{
+    if(window.location.pathname.split("-")[1] === 'signup'){
+      setActivity(true);
+    }
+  }, []);
 
   return (
     <div className="activity-body">
@@ -195,7 +202,7 @@ function ActivitySection() {
           {
             !verificationStage &&
             <form onSubmit={toggleVerificationStage}>
-              <h2>Create Buyer Account</h2>
+              <h2>Create Seller Account</h2>
               <div className="social-container">
                 <button className="activity-signin-google-btn">
                   <img src={Googleicon} className="" alt="" /> Sign up with Google
@@ -215,7 +222,7 @@ function ActivitySection() {
                 <Eye size={20} style={{cursor: 'pointer'}} onClick={togglePassView}/>
               </div>
               <p className="login-signup-error-msg">{!passMatched && 'Password not matched'}</p>
-              <button type="submit" className={`${passMatched ? '' : 'btn-disabled'} ${loading ? 'btn-disabled' : ''}`} onClick={()=>navigate('/products')} disabled={!passMatched}>Sign Up {loading && <Spinner className="login-signup-btn-spinner" size="sm" animation="border" />}</button>
+              <button type="submit" className={`${passMatched ? '' : 'btn-disabled'} ${loading ? 'btn-disabled' : ''}`} disabled={!passMatched}>Sign Up {loading && <Spinner className="login-signup-btn-spinner" size="sm" animation="border" />}</button>
               <p className="activity-donthaveaccnt">
                 Already have an account?{" "}
                 <Link onClick={toggleActivity}>Sign in</Link>
@@ -239,7 +246,7 @@ function ActivitySection() {
         <div className="form-container sign-in-container">
           <span className="activity-logo">Campus Recycle</span>
           <form onSubmit={handleLogin}>
-            <h2>Sign in as Buyer</h2>
+            <h2>Sign in as Seller</h2>
             <div className="social-container">
               <button className="activity-signin-google-btn">
                 <img src={Googleicon} className="" alt="" /> Sign in with Google
@@ -254,7 +261,7 @@ function ActivitySection() {
             </div>
             <p className="login-signup-error-msg">{errorMsg.type === 'wrong password' ? errorMsg.msg : ''}</p>
             <Link to='/forgotpassword'>Forgot your password?</Link>
-            <button type="submit" className={loading ? 'btn-disabled' : ''} onClick={()=>navigate('/products')}>Sign In {loading && <Spinner className="login-signup-btn-spinner" size="sm" animation="border" />}</button>
+            <button type="submit" className={loading ? 'btn-disabled' : ''}>Sign In {loading && <Spinner className="login-signup-btn-spinner" size="sm" animation="border" />}</button>
             <p className="activity-donthaveaccnt">
               Don't have an account?{" "}
               <Link onClick={toggleActivity}>Sign up</Link>
@@ -314,4 +321,5 @@ function ActivitySection() {
   );
 }
 
-export default ActivitySection;
+export default SellerReg;
+

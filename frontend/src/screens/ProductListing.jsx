@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import BuyerNavbar from "../components/BuyerNavbar/BuyerNavbar";
-import ProductList from "../components/ProductListing/ProductList";
+import BuyerNavbar from "../components/BuyerInterface/BuyerNavbar/BuyerNavbar";
+import ProductList from "../components/BuyerInterface/ProductListing/ProductList"
 import { useProducts } from "../context/ProductsProvider";
 import { ChevronDown, ListFilter, Calendar, ArrowDownAZ } from "lucide-react";
 import Fuse from "fuse.js";

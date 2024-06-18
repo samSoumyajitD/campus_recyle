@@ -1,6 +1,6 @@
 import React from 'react'
-import BuyerSidebar from '../components/BuyerProfile/BuyerSidebar'
-import BuyerProfileView from '../components/BuyerProfile/BuyerProfileView/BuyerProfileView'
+import BuyerSidebar from '../components/BuyerInterface/BuyerProfile/BuyerSidebar'
+import BuyerProfileView from '../components/BuyerInterface/BuyerProfile/BuyerProfileView'
 
 function BuyerProfile() {
   return (

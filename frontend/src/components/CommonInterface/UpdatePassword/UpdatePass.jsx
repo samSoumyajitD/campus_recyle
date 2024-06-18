@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Eye } from 'lucide-react';
 import './UpdatePass.css'
-import { apiConnector } from '../../utils/Apiconnecter';
-import { authroutes } from '../../apis/apis';
+import { apiConnector } from '../../../utils/Apiconnecter';
+import { authroutes } from '../../../apis/apis';
 import { useNavigate } from 'react-router-dom';
 import Spinner from "react-bootstrap/Spinner";
 

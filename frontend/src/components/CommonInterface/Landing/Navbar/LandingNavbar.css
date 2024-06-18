@@ -258,9 +258,12 @@
         font-weight: 600;
     }
     .landing-navbar-left{
-        width: 70%;
+        width: 55% !important;
     }
     .dropdown{
         display: none;
+    }
+    .landing-hamberger-menu-btn-signup{
+        margin-left: 0 !important;
     }
 }

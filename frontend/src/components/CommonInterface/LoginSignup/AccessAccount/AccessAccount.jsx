@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import './AccessAccount.css'
 import AccessLogin from './AccessLogin'
 
-import LandingFooter from '../../Landing/LandingFooter/LandingFooter'
+import LandingFooter from '../../../CommonInterface/Landing/LandingFooter/LandingFooter'
 import { Menu, Plus } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 

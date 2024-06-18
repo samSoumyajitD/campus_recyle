@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import BuyerNavbar from '../components/BuyerNavbar/BuyerNavbar';
-import BuyerProductView from '../components/BuyerProductView/BuyerProductView';
+import BuyerNavbar from '../components/BuyerInterface/BuyerNavbar/BuyerNavbar';
+import BuyerProductView from '../components/BuyerInterface/BuyerProductView/BuyerProductView';
 import { useProducts } from '../context/ProductsProvider';
 
 function ProductView() {

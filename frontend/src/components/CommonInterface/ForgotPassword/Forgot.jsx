@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import "./Forgot.css";
-import { apiConnector } from "../../utils/Apiconnecter";
-import { authroutes } from "../../apis/apis";
-import successCheck from "../../images/success-check.png";
+import { apiConnector } from "../../../utils/Apiconnecter";
+import { authroutes } from "../../../apis/apis";
+import successCheck from "../../../images/success-check.png";
 import Spinner from "react-bootstrap/Spinner";
 
 function Forgot() {

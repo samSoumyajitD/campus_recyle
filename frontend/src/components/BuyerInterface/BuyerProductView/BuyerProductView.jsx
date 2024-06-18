@@ -1,6 +1,6 @@
 import React from 'react';
 import './BuyerProductView.css';
-import ProductImage from '../../images/product-image.jpg';
+import ProductImage from '../../../images/product-image.jpg';
 import { Trophy, Flame, Flower2, Sparkle, GraduationCap, Briefcase } from 'lucide-react';
 
 function BuyerProductView(props) {

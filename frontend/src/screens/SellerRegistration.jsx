@@ -1,5 +1,5 @@
 import React from 'react'
-import SellerReg from '../components/SellerRegistration/SellerReg'
+import SellerReg from '../components/SellerInterface/SellerRegistration/SellerReg'
 
 function SellerRegistration() {
   return (

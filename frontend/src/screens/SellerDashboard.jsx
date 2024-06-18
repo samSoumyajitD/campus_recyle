@@ -1,5 +1,5 @@
 import React from 'react';
-import SellerSidebar from '../components/SellerDashboard/SellerSidebar';
+import SellerSidebar from '../components/SellerInterface/SellerDashboard/SellerSidebar';
 
 function SellerDashboard() {
   return (

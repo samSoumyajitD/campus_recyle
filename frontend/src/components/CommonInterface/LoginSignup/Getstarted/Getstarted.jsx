@@ -61,7 +61,7 @@ function Getstarted() {
           )}
           {activeButton === "button1" && (
             <div className="create_account_button">
-              <button className="button" onClick={()=>navigate('/login')}>
+              <button className="button" onClick={()=>navigate('/buyer-signup')}>
                 Create account
                 <div className="arrow-wrapper">
                   <div className="arrow"></div>
@@ -71,7 +71,7 @@ function Getstarted() {
           )}
           {activeButton === "button2" && (
             <div className="create_account_button">
-              <button className="button" onClick={()=>navigate('/seller-registration')}>
+              <button className="button" onClick={()=>navigate('/seller-signup')}>
                 Create account
                 <div className="arrow-wrapper">
                   <div className="arrow"></div>

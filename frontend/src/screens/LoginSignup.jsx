@@ -1,5 +1,5 @@
 import React from 'react'
-import ActivitySection from '../components/LoginSignup/Activity/ActivitySection'
+import ActivitySection from '../components/CommonInterface/LoginSignup/Activity/ActivitySection'
 
 function LoginSignup() {
   return (
