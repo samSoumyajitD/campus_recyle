@@ -1,0 +1,85 @@
+.add-product-form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    width: 83%;
+}
+
+
+.add-product-form form{
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+}
+
+.add-product-form form .add-product-form-body{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.form-block{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+}
+
+.form-block .form-segment{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    width: 80%;
+    margin: 0.3rem 0px;
+}
+
+.form-block .form-segment label{
+    margin: 0.3rem 0px;
+    color: rgb(47, 47, 47);
+}
+
+.form-block .form-segment input{
+    width: 100%;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid gray;
+}
+
+.add-product-form-footer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 2rem 0px;
+}
+
+.add-product-form-footer button{
+    margin: 0px 10px;
+    color: white;
+    background: black;
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+
+.add-product-form-heading{
+    width: 90%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.add-product-form-attachments{
+    margin: 1rem 0;
+    width: 90%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
