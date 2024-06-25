@@ -118,7 +118,7 @@ function SellerReg() {
           accounttype: "Seller"
         })
         setloading(false);
-        navigate('/seller-dashboard');
+        navigate('/seller');
       }else{
         if(responseObj.data.message === "User already Registered"){
           setErrorMsg({
@@ -155,7 +155,7 @@ function SellerReg() {
       if(responseObj.data.success){
         localStorage.setItem("campusrecycletoken", responseObj.data.token);
         setloading(false);
-        navigate('/seller-dashboard');
+        navigate('/seller');
       }else{
         if(responseObj.data.message === "User Not Registered"){
           setErrorMsg({

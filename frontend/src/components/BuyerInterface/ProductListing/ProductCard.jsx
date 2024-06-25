@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 function ProductCard(props) {
   const navigate = useNavigate();
   return (
-    <div className='product-card col-md-3' onClick={()=>navigate(`/products/${props.product._id}`)}>
+    <div className='product-card col-md-3' onClick={()=>navigate(`/buyer/products/${props.product._id}`)}>
         <div className="product-card-image">
             <img src={props.product && props.product.images && props.product.images[0]} alt="" />
         </div>

@@ -1,7 +1,6 @@
 import React from "react";
 import "./BuyerProfileView.css";
 import { Pencil } from "lucide-react";
-import { LineChart } from "@mui/x-charts/LineChart";
 import { BarPlot } from "@mui/x-charts/BarChart";
 import { LinePlot } from "@mui/x-charts/LineChart";
 import { ChartContainer } from "@mui/x-charts/ChartContainer";

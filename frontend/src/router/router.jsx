@@ -11,6 +11,9 @@ import ProductView from '../screens/ProductView';
 import SellerRegistration from '../screens/SellerRegistration';
 import BuyerProfile from '../screens/BuyerProfile';
 import SellerDashboard from '../screens/SellerDashboard';
+import BuyerWelcome from '../screens/BuyerWelcome';
+import SellerWelcome from '../screens/SellerWelcome';
+import AddProduct from '../screens/AddProduct';
 
 const router = createBrowserRouter([
   {
@@ -35,8 +38,8 @@ const router = createBrowserRouter([
   { path: 'updatepassword/:token', element: <UpdatePassword /> },
   { 
     path: '/buyer',
-    // element: <App />,
     children: [
+      { path: 'welcome', element: <BuyerWelcome/> },
       { path: 'productlist', element: <ProductListing/> },
       { path: 'products/:productid', element: <ProductView /> },
       { path: 'buyer-profile', element: <BuyerProfile /> },
@@ -44,11 +47,10 @@ const router = createBrowserRouter([
     ]},
     {
       path: '/seller',
-  
       children: [
-       
+        { path: 'welcome', element: <SellerWelcome/> },
         { path: 'seller-dashboard', element: <SellerDashboard /> },
-       
+        { path: 'add-product', element: <AddProduct /> },
       ]
     }
 ]);

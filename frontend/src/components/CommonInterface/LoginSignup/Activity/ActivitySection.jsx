@@ -120,6 +120,7 @@ function ActivitySection() {
           accounttype: "Buyer"
         })
         setloading(false);
+        navigate('/buyer');
       }else{
         if(responseObj.data.message === "User already Registered"){
           setErrorMsg({
@@ -155,6 +156,7 @@ function ActivitySection() {
       if(responseObj.data.success){
         localStorage.setItem("campusrecycletoken", responseObj.data.token);
         setloading(false);
+        navigate('/buyer/welcome');
       }else{
         if(responseObj.data.message === "User Not Registered"){
           setErrorMsg({
@@ -221,7 +223,7 @@ function ActivitySection() {
                 <Eye size={20} style={{cursor: 'pointer'}} onClick={togglePassView}/>
               </div>
               <p className="login-signup-error-msg">{!passMatched && 'Password not matched'}</p>
-              <button type="submit" className={`${passMatched ? '' : 'btn-disabled'} ${loading ? 'btn-disabled' : ''}`} onClick={()=>navigate('/products')} disabled={!passMatched}>Sign Up {loading && <Spinner className="login-signup-btn-spinner" size="sm" animation="border" />}</button>
+              <button type="submit" className={`${passMatched ? '' : 'btn-disabled'} ${loading ? 'btn-disabled' : ''}`} disabled={!passMatched}>Sign Up {loading && <Spinner className="login-signup-btn-spinner" size="sm" animation="border" />}</button>
               <p className="activity-donthaveaccnt">
                 Already have an account?{" "}
                 <Link onClick={toggleActivity}>Sign in</Link>
@@ -260,7 +262,7 @@ function ActivitySection() {
             </div>
             <p className="login-signup-error-msg">{errorMsg.type === 'wrong password' ? errorMsg.msg : ''}</p>
             <Link to='/forgotpassword'>Forgot your password?</Link>
-            <button type="submit" className={loading ? 'btn-disabled' : ''} onClick={()=>navigate('/products')}>Sign In {loading && <Spinner className="login-signup-btn-spinner" size="sm" animation="border" />}</button>
+            <button type="submit" className={loading ? 'btn-disabled' : ''} >Sign In {loading && <Spinner className="login-signup-btn-spinner" size="sm" animation="border" />}</button>
             <p className="activity-donthaveaccnt">
               Don't have an account?{" "}
               <Link onClick={toggleActivity}>Sign up</Link>

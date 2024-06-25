@@ -1,0 +1,67 @@
+.seller-top-navbar{
+    height: 8vh;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    background-color: #fefefe;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+    width: 100%;
+    padding: 5px 20px;
+}
+
+.seller-top-navbar .profile{
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+
+.seller-top-navbar .profile img{
+    width: 5%;
+    border-radius: 50%;
+    margin: 0px 10px;
+}
+
+.seller-top-navbar .profile div{
+    cursor: pointer;
+}
+
+.seller-top-navbar .profile div h6{
+    font-weight: 500;
+    margin: 0;
+    font-size: medium;
+}
+
+.seller-top-navbar .profile div p{
+    margin: 0;
+    font-size: small;
+}
+
+.seller-top-navbar .dropdown{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border-radius: 10px;
+    position: absolute;
+    top: 3.5rem;
+    width: 10%;
+    height: 18vh;
+}
+
+.seller-top-navbar .dropdown a{
+    padding: 10px 0px;
+    cursor: pointer;
+    width: 100%;
+    text-decoration: none;
+    color: rgb(104, 104, 104);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.seller-top-navbar .dropdown a:hover{
+    background-color: #f4f4f4;
+    color: black;
+}

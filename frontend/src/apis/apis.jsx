@@ -5,5 +5,6 @@ export const authroutes={
     SEND_OTP_API:BASE_URL+"/auth/sendotp",
     SIGNUP_API:BASE_URL+"/auth/signup",
     FORGOT_PASSWORD_TOKEN_REQUEST:BASE_URL+"/auth/forgotpasswordtoken",
-    RESET_PASSWORD:BASE_URL+"/auth/forgotpassword"
+    RESET_PASSWORD:BASE_URL+"/auth/forgotpassword",
+    ADD_PRODUCT:BASE_URL+"/product/createproduct"
 }

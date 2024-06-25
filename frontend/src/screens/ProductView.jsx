@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import BuyerNavbar from '../components/BuyerInterface/BuyerNavbar/BuyerNavbar';
 import BuyerProductView from '../components/BuyerInterface/BuyerProductView/BuyerProductView';
-import { useProducts } from '../context/ProductsProvider';
+import { GetContext } from '../context/ProductsProvider';
 
 function ProductView() {
-  const allProducts = useProducts().data;
+  const context = GetContext();
+  const {
+    allProducts,
+  } = context;
   const [product, setProduct] = useState(null);
   useEffect(()=>{
     for(let product of allProducts){

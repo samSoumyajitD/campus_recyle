@@ -19,9 +19,9 @@ function BuyerNavbar() {
       </div>
       <div className="buyer-navbar-options">
         <Link
-          to="/products"
+          to="/buyer/productlist"
           className={`buyer-navbar-options-item ${
-            window.location.pathname === "/products" ? "active" : ""
+            window.location.pathname === "/buyer/products" ? "active" : ""
           }`}
         >
           Products
@@ -40,7 +40,8 @@ function BuyerNavbar() {
         </div>
         {profileDrop && (
           <div className="dropdown">
-            <Link to="/buyer-profile">See Profile</Link>
+            <Link to="/buyer/buyer-profile">See Profile</Link>
+            <Link to="/seller/seller-dashboard">Switch to Seller</Link>
             <Link to="/">Logout</Link>
           </div>
         )}

@@ -33,7 +33,7 @@ function BuyerSidebar() {
           </Link>
           <Link to='/products'>
             <Package size={20}/>
-            <span>Order Now</span>
+            <span>Explore</span>
           </Link>
           <Link>
             <LogOut size={20}/>
