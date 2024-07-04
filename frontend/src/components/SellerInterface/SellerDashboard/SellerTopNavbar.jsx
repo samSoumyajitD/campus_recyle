@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./SellerTopNavbar.css";
 import { Link } from "react-router-dom";
 
 function SellerTopNavbar() {
+  const [userDetails, setUserDetails] = useState(null);
+  const [profilePicture, setProfilePicture] = useState(null);
   const [profileDrop, setProfileDrop] = useState(false);
   const toggleProfileDrop = () => {
     if (profileDrop) {
@@ -11,16 +13,22 @@ function SellerTopNavbar() {
       setProfileDrop(true);
     }
   };
+
+  useEffect(()=>{
+    const user = JSON.parse(localStorage.getItem("campusrecycleuser"));
+    setProfilePicture(user.image);
+    setUserDetails(user);
+  }, []);
   return (
     <div className="seller-top-navbar">
       <div className="profile" onClick={toggleProfileDrop}>
         <img
-          src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+          src={profilePicture ? profilePicture : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"}
           alt=""
         />
         <div>
-          <h6>User Name</h6>
-          <p>user@gmail.com</p>
+          <h6>{userDetails && userDetails.firstname}</h6>
+          <p>{userDetails && userDetails.email}</p>
         </div>
       </div>
       {profileDrop && (

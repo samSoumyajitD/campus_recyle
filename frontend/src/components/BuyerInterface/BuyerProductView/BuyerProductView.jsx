@@ -1,9 +1,33 @@
 import React from 'react';
 import './BuyerProductView.css';
-import ProductImage from '../../../images/product-image.jpg';
 import { Trophy, Flame, Flower2, Sparkle, GraduationCap, Briefcase } from 'lucide-react';
+import { apiConnector } from "../../../utils/Apiconnecter";
+import { authroutes } from "../../../apis/apis";
 
 function BuyerProductView(props) {
+    const handleProductRequest = async() => {
+        const user = localStorage.getItem('campusrecycleuser');
+        const userObj = JSON.parse(user);
+        const buyerEmail = userObj.email;
+        try {
+            const api_header = { 
+              Authorization: `Bearer ${localStorage.getItem('campusrecycletoken')}`,
+              "Content-Type": "multipart/form-data"
+            };
+            const bodyData = {
+                buyername: buyerEmail,
+                selleremail: props.product.owner.email,
+                productid: props.product._id
+            }
+            const response = await apiConnector("POST", authroutes.PRODUCT_REQUEST, bodyData, api_header);
+            console.log(response.data);
+            if (response.data.success) {
+              alert("Product requested");
+            }
+          } catch (error) {
+            console.log(error);
+          }
+    }
   return (
     <div className='buyer-product-view'>
         <div className='buyer-product-view-container'>
@@ -109,7 +133,7 @@ function BuyerProductView(props) {
                             &#x20B9;{props.product && props.product.price} Per Product
                         </h5>
                         <p>{props.product && props.product.quantity} left - {props.product && props.product.status}</p>
-                        <button className='btn'>
+                        <button className='btn' onClick={handleProductRequest}>
                             Request
                         </button>
                     </div>

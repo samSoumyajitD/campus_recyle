@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react'
-import AddProductForm from '../components/SellerInterface/SellerAddProduct/AddProductForm'
 import SellerSidebar from '../components/SellerInterface/SellerDashboard/SellerSidebar'
 import SellerTopNavbar from '../components/SellerInterface/SellerDashboard/SellerTopNavbar'
+import AllRequests from '../components/SellerInterface/ProductRequests/AllRequests'
 import { useNavigate } from 'react-router-dom';
 
-function AddProduct() {
+function SellerProductRequests() {
   const navigate = useNavigate();
 
   useEffect(()=>{
@@ -14,15 +14,15 @@ function AddProduct() {
   }, []);
   return (
     <>
-        <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-            <SellerSidebar/>
-            <SellerTopNavbar/>
-        </div>
-        <div style={{display: 'flex', justifyContent: 'end', alignItems: 'center'}}>
-            <AddProductForm/>
-        </div>
+      <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+        <SellerSidebar/>
+        <SellerTopNavbar/>
+      </div>
+      <div style={{display: 'flex', justifyContent: 'end', alignItems: 'center'}}>
+        <AllRequests/>
+      </div>
     </>
   )
 }
 
-export default AddProduct
+export default SellerProductRequests

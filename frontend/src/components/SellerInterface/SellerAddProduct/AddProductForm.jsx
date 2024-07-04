@@ -1,10 +1,11 @@
 import React, { useRef, useState } from "react";
 import "./AddProductFrom.css";
-import axios from "axios";
+import Spinner from "react-bootstrap/Spinner";
 import { apiConnector } from "../../../utils/Apiconnecter";
 import { authroutes } from "../../../apis/apis";
 
 function AddProductForm() {
+  const [isLoading, setIsLoading] = useState(false);
   const [addProductData, setAddProductData] = useState({
     productname: "",
     productdescription: "",
@@ -14,6 +15,7 @@ function AddProductForm() {
     categoryid: "",
   });
   const imagesInputRef = useRef();
+  const addProductFormRef = useRef();
 
   const handleOnChange = (e) => {
     setAddProductData({ ...addProductData, [e.target.name]: e.target.value });
@@ -21,18 +23,21 @@ function AddProductForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log(imagesInputRef.current.files);
+    setIsLoading(true);
     var formData = new FormData();
 
     for (var key in addProductData) {
         formData.append(key, addProductData[key]);
     }
 
-    formData.append("images", imagesInputRef.current.files);
+    for (let i = 0; i < imagesInputRef.current.files.length; i++) {
+      formData.append('images', imagesInputRef.current.files[i], imagesInputRef.current.files[i].name);
+    }
+    
     try {
       const api_header = { 
         Authorization: `Bearer ${localStorage.getItem('campusrecycletoken')}`,
-        'Content-Type': "application/json" 
+        "Content-Type": "multipart/form-data"
       };
       const response = await apiConnector("POST", authroutes.ADD_PRODUCT, formData, api_header);
       console.log(response.data);
@@ -46,14 +51,25 @@ function AddProductForm() {
           categoryid: "",
         });
         console.log("Product added");
+        addProductFormRef.current.reset();
+        setIsLoading(false);
+        const user = localStorage.getItem('campusrecycleuser');
+        const userObj = JSON.parse(user);
+        const allProductIds = userObj.products;
+        allProductIds.push(response.data.data._id);
+        userObj.products = allProductIds;
+        localStorage.setItem('campusrecycleuser', JSON.stringify(userObj));
+      }else{
+        setIsLoading(false);
       }
     } catch (error) {
       console.log(error);
+      setIsLoading(false);
     }
   };
   return (
     <div className="add-product-form">
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} ref={addProductFormRef}>
         <div className="add-product-form-heading">
           <h3>Add New Product</h3>
         </div>
@@ -129,7 +145,6 @@ function AddProductForm() {
             type="file"
             accept=".jpg, .png, .jpeg"
             name="images"
-            // onChange={e=>console.log(e.target.files)}
             ref={imagesInputRef}
             multiple
           />
@@ -149,7 +164,9 @@ function AddProductForm() {
           >
             Cancel
           </button>
-          <button type="sumbit">Add Product</button>
+          <button type="sumbit" style={{padding: isLoading ? '1px 10px' : ''}}>
+            Add Product {isLoading && <Spinner className="add-product-spinner"/>}
+          </button>
         </div>
       </form>
     </div>

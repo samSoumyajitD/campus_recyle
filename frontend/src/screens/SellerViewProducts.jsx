@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react'
-import AddProductForm from '../components/SellerInterface/SellerAddProduct/AddProductForm'
 import SellerSidebar from '../components/SellerInterface/SellerDashboard/SellerSidebar'
 import SellerTopNavbar from '../components/SellerInterface/SellerDashboard/SellerTopNavbar'
+import SellerProductList from '../components/SellerInterface/SellerViewProducts/SellerProductList'
 import { useNavigate } from 'react-router-dom';
 
-function AddProduct() {
+function SellerViewProducts() {
   const navigate = useNavigate();
 
   useEffect(()=>{
@@ -19,10 +19,10 @@ function AddProduct() {
             <SellerTopNavbar/>
         </div>
         <div style={{display: 'flex', justifyContent: 'end', alignItems: 'center'}}>
-            <AddProductForm/>
+            <SellerProductList/>
         </div>
     </>
   )
 }
 
-export default AddProduct
+export default SellerViewProducts

@@ -66,6 +66,13 @@
     background: black;
     border-radius: 5px;
     padding: 5px 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.add-product-form-footer button .add-product-spinner{
+    scale: 0.5;
 }
 
 .add-product-form-heading{

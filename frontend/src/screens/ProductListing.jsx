@@ -10,6 +10,7 @@ import {
   ArrowUpAZ
 } from "lucide-react";
 import Fuse from "fuse.js";
+import { useNavigate } from "react-router-dom";
 
 function ProductListing() {
   const context = GetContext();
@@ -92,8 +93,14 @@ function ProductListing() {
     setAllProducts(sortedData);
   };
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     console.log(allProducts);
+
+    if(!localStorage.getItem('campusrecycletoken')){
+      navigate('/');
+    }
   }, []);
 
   return (

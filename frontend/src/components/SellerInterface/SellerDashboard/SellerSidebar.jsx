@@ -16,7 +16,7 @@ function SellerSidebar() {
             <ChevronDown size={15}/>
           </span>
           <div>
-            <Link className="active-sidebar-link">
+            <Link className="active-sidebar-link" to={'/seller/seller-dashboard'}>
               <CircleGauge size={20}/>
               <span>Dashboard</span>
             </Link>
@@ -30,7 +30,7 @@ function SellerSidebar() {
             <ChevronDown size={15}/>
           </span>
           <div>
-            <Link>
+            <Link to='/seller/view-product'>
               <PackageSearch size={20}/>
               <span>View Products</span>
             </Link>
@@ -38,7 +38,7 @@ function SellerSidebar() {
               <PackagePlus size={20}/>
               <span>Add Product</span>
             </Link>
-            <Link>
+            <Link to='/seller/product-requests'>
               <Package size={20}/>
               <span>Active Requests</span>
             </Link>

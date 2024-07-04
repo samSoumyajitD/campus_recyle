@@ -108,7 +108,7 @@ function ActivitySection() {
 
       console.log(responseObj.data);
       if(responseObj.data.success){
-        // localStorage.setItem("campusrecycletoken", responseObj.token)
+        // localStorage.setItem("campusrecycletoken", responseObj.data.token);
         console.log("success");
         setSignUpDetails({
           email: "",
@@ -155,6 +155,7 @@ function ActivitySection() {
       console.log(responseObj);
       if(responseObj.data.success){
         localStorage.setItem("campusrecycletoken", responseObj.data.token);
+        localStorage.setItem("campusrecycleuser", JSON.stringify(responseObj.data.data));
         setloading(false);
         navigate('/buyer/welcome');
       }else{

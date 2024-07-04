@@ -14,6 +14,9 @@ import SellerDashboard from '../screens/SellerDashboard';
 import BuyerWelcome from '../screens/BuyerWelcome';
 import SellerWelcome from '../screens/SellerWelcome';
 import AddProduct from '../screens/AddProduct';
+import SellerViewProducts from '../screens/SellerViewProducts';
+import SellerProductRequests from '../screens/SellerProductRequests';
+import BuyerProductRequests from '../screens/BuyerProductRequests';
 
 const router = createBrowserRouter([
   {
@@ -43,6 +46,7 @@ const router = createBrowserRouter([
       { path: 'productlist', element: <ProductListing/> },
       { path: 'products/:productid', element: <ProductView /> },
       { path: 'buyer-profile', element: <BuyerProfile /> },
+      { path: 'product-requests', element: <BuyerProductRequests /> },
       
     ]},
     {
@@ -51,6 +55,8 @@ const router = createBrowserRouter([
         { path: 'welcome', element: <SellerWelcome/> },
         { path: 'seller-dashboard', element: <SellerDashboard /> },
         { path: 'add-product', element: <AddProduct /> },
+        { path: 'view-product', element: <SellerViewProducts /> },
+        { path: 'product-requests', element: <SellerProductRequests /> },
       ]
     }
 ]);

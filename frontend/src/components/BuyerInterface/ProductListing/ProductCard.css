@@ -7,11 +7,13 @@
     width: 100%;
     max-width: 300px;
     cursor: pointer;
+    margin: 0px 1rem;
 }
 
 .product-card-image img{
-    width: 100%;
     border-radius: 20px;
+    width: 280px;
+    height: 160px;
 }
 
 .product-card-details{
