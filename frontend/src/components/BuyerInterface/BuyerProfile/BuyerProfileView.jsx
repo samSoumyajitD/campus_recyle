@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./BuyerProfileView.css";
 import { Pencil } from "lucide-react";
-import { LineChart } from "@mui/x-charts/LineChart";
 import { BarPlot } from "@mui/x-charts/BarChart";
 import { LinePlot } from "@mui/x-charts/LineChart";
 import { ChartContainer } from "@mui/x-charts/ChartContainer";
@@ -20,18 +19,25 @@ const series = [
 ];
 
 function BuyerProfileView() {
+  const [userDetails, setUserDetails] = useState(null);
+
+  useEffect(()=>{
+    const user = JSON.parse(localStorage.getItem('campusrecycleuser'));
+
+    setUserDetails(user);
+  }, []);
   return (
     <div className="profile-view">
       <div className="top">
         <img
-          src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+          src={userDetails && userDetails.image}
           alt=""
         />
       </div>
       <div className="profile-details">
         <div>
-          <h4>Profile Name</h4>
-          <p>buyer@email.com</p>
+          <h4>{userDetails && userDetails.firstname} {userDetails && userDetails.lastname}</h4>
+          <p>{userDetails && userDetails.email}</p>
           <p>Buyer</p>
         </div>
         <div className="total-orders">

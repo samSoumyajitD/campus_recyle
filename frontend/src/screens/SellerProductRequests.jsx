@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
-import SellerSidebar from '../components/SellerInterface/SellerDashboard/SellerSidebar';
-import SellerTopNavbar from '../components/SellerInterface/SellerDashboard/SellerTopNavbar';
-import SellerOverview from '../components/SellerInterface/SellerDashboard/SellerOverview';
+import React, { useEffect } from 'react'
+import SellerSidebar from '../components/SellerInterface/SellerDashboard/SellerSidebar'
+import SellerTopNavbar from '../components/SellerInterface/SellerDashboard/SellerTopNavbar'
+import AllRequests from '../components/SellerInterface/ProductRequests/AllRequests'
 import { useNavigate } from 'react-router-dom';
 
-function SellerDashboard() {
+function SellerProductRequests() {
   const navigate = useNavigate();
 
   useEffect(()=>{
@@ -19,10 +19,10 @@ function SellerDashboard() {
         <SellerTopNavbar/>
       </div>
       <div style={{display: 'flex', justifyContent: 'end', alignItems: 'center'}}>
-        <SellerOverview/>
+        <AllRequests/>
       </div>
     </>
   )
 }
 
-export default SellerDashboard
+export default SellerProductRequests
