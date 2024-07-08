@@ -8,7 +8,7 @@ import ProductListing from '../screens/ProductListing';
 import Getstarted from '../components/CommonInterface/LoginSignup/Getstarted/Getstarted';
 import AccessAccount from '../components/CommonInterface/LoginSignup/AccessAccount/AccessAccount';
 import ProductView from '../screens/ProductView';
-import SellerRegistration from '../screens/SellerRegistration';
+
 import BuyerProfile from '../screens/BuyerProfile';
 import SellerDashboard from '../screens/SellerDashboard';
 import BuyerWelcome from '../screens/BuyerWelcome';
@@ -24,7 +24,7 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       { index: true, element: <LandingPage /> },
-      { path: 'getstarted', element: <Getstarted /> },
+    
       { path: 'access-account', element: <AccessAccount /> },
     
       
@@ -33,8 +33,7 @@ const router = createBrowserRouter([
      
     ],
   },
-  { path: 'seller-login', element: <SellerRegistration /> },
-  { path: 'seller-signup', element: <SellerRegistration /> },  
+  
   { path: 'buyer-login', element: <LoginSignup /> },
   { path: 'buyer-signup', element: <LoginSignup /> },
   { path: 'forgotpassword', element: <ForgotPassword /> },
@@ -42,7 +41,7 @@ const router = createBrowserRouter([
   { 
     path: '/buyer',
     children: [
-      { path: 'welcome', element: <BuyerWelcome/> },
+      { path: 'welcome', element:  <Getstarted /> },
       { path: 'productlist', element: <ProductListing/> },
       { path: 'products/:productid', element: <ProductView /> },
       { path: 'buyer-profile', element: <BuyerProfile /> },

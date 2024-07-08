@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import BuyerWelcomePage from '../components/BuyerInterface/BuyerWelcome/BuyerWelcomePage';
+import Getstarted from '../components/CommonInterface/LoginSignup/Getstarted/Getstarted';
 import { useNavigate } from 'react-router-dom';
 
 function BuyerWelcome() {
@@ -11,7 +11,7 @@ function BuyerWelcome() {
     }
   }, []);
   return (
-    <BuyerWelcomePage/>
+    <Getstarted/>
   )
 }
 

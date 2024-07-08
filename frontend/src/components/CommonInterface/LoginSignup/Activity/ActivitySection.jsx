@@ -204,7 +204,7 @@ function ActivitySection() {
           {
             !verificationStage &&
             <form onSubmit={toggleVerificationStage}>
-              <h2>Create Buyer Account</h2>
+              <h2>Create Account</h2>
               <div className="social-container">
                 <button className="activity-signin-google-btn">
                   <img src={Googleicon} className="" alt="" /> Sign up with Google
@@ -248,7 +248,7 @@ function ActivitySection() {
         <div className="form-container sign-in-container">
           <span className="activity-logo">Campus Recycle</span>
           <form onSubmit={handleLogin}>
-            <h2>Sign in as Buyer</h2>
+            <h2>Sign in </h2>
             <div className="social-container">
               <button className="activity-signin-google-btn">
                 <img src={Googleicon} className="" alt="" /> Sign in with Google
