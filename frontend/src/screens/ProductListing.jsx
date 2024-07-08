@@ -14,7 +14,7 @@ import { useNavigate } from "react-router-dom";
 
 function ProductListing() {
   const context = GetContext();
-  const { allProducts, setAllProducts } = context;
+  const { allProducts, setAllProducts, getAllProducts } = context;
 
   const [AlphabeticalsortingOrder, setAlphabeticalSortingOrder] =
     useState("Alphabeticalasc");
@@ -97,6 +97,7 @@ function ProductListing() {
 
   useEffect(() => {
     console.log(allProducts);
+    getAllProducts();
 
     if(!localStorage.getItem('campusrecycletoken')){
       navigate('/');

@@ -26,12 +26,12 @@ export const ProductProvider = (props) => {
     }
   }
 
-  useEffect(()=>{
-    getAllProducts();
-  }, []);
+  // useEffect(()=>{
+  //   getAllProducts();
+  // }, []);
 
   return (
-    <ProductContext.Provider value={{allProducts, setAllProducts}}>
+    <ProductContext.Provider value={{allProducts, setAllProducts, getAllProducts}}>
       {props.children}
     </ProductContext.Provider>
   );
