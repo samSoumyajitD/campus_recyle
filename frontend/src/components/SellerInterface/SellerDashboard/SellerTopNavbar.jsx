@@ -33,7 +33,7 @@ function SellerTopNavbar() {
       </div>
       {profileDrop && (
         <div className="dropdown">
-          <Link to="/buyer/buyer-profile">See Profile</Link>
+          <Link to="/student-profile">See Profile</Link>
           <Link to="/buyer/productlist">Switch to Buyer</Link>
           <Link to="/">Logout</Link>
         </div>

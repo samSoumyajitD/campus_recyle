@@ -46,7 +46,7 @@ function ActivitySection() {
     password: "",
     confirmpassword: "",
     otp: "",
-    accounttype: "Buyer"
+   
   })
 
   const [verificationStage, setVerificationStage] = useState(false);
@@ -117,10 +117,10 @@ function ActivitySection() {
           password: "",
           confirmpassword: "",
           otp: "",
-          accounttype: "Buyer"
+         
         })
         setloading(false);
-        navigate('/buyer');
+        navigate('/');
       }else{
         if(responseObj.data.message === "User already Registered"){
           setErrorMsg({
@@ -157,7 +157,7 @@ function ActivitySection() {
         localStorage.setItem("campusrecycletoken", responseObj.data.token);
         localStorage.setItem("campusrecycleuser", JSON.stringify(responseObj.data.data));
         setloading(false);
-        navigate('/buyer/welcome');
+        navigate('/getstarted');
       }else{
         if(responseObj.data.message === "User Not Registered"){
           setErrorMsg({
@@ -204,7 +204,7 @@ function ActivitySection() {
           {
             !verificationStage &&
             <form onSubmit={toggleVerificationStage}>
-              <h2>Create Buyer Account</h2>
+              <h2>Create Account</h2>
               <div className="social-container">
                 <button className="activity-signin-google-btn">
                   <img src={Googleicon} className="" alt="" /> Sign up with Google
@@ -248,7 +248,7 @@ function ActivitySection() {
         <div className="form-container sign-in-container">
           <span className="activity-logo">Campus Recycle</span>
           <form onSubmit={handleLogin}>
-            <h2>Sign in as Buyer</h2>
+            <h2>Sign in </h2>
             <div className="social-container">
               <button className="activity-signin-google-btn">
                 <img src={Googleicon} className="" alt="" /> Sign in with Google

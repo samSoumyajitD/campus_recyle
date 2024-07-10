@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import BuyerSidebar from '../components/BuyerInterface/BuyerProfile/BuyerSidebar';
+import BuyerSidebar from '../components/CommonInterface/Studentprofile/StudentprofileSidebar';
 import ProductRequest from '../components/BuyerInterface/BuyerProductRequests/ProductRequest';
 import SellerTopNavbar from '../components/SellerInterface/SellerDashboard/SellerTopNavbar';
 import { useNavigate } from 'react-router-dom';
