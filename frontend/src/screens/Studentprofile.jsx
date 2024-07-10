@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
-import BuyerSidebar from '../components/BuyerInterface/BuyerProfile/BuyerSidebar'
-import BuyerProfileView from '../components/BuyerInterface/BuyerProfile/BuyerProfileView'
+import BuyerSidebar from '../components/CommonInterface/Studentprofile/StudentprofileSidebar'
+import StudentprofileView from '../components/CommonInterface/Studentprofile/StudentprofileView'
 import { useNavigate } from 'react-router-dom';
 
 function BuyerProfile() {
@@ -15,7 +15,7 @@ function BuyerProfile() {
     <>
       <div style={{display: 'flex', justifyContent: 'end', alignItems: 'center'}}>
         <BuyerSidebar/>
-        <BuyerProfileView/>
+        <StudentprofileView/>
       </div>
     </>
   )

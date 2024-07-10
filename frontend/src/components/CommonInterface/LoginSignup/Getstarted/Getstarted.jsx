@@ -52,7 +52,7 @@ function Getstarted() {
           {activeButton === null && (
             <div className="create_account_button">
               <button className="defbutton">
-                Create account
+              Get Satred
                 <div className="arrow-wrapper">
                   <div className="arrow"></div>
                 </div>
@@ -61,8 +61,8 @@ function Getstarted() {
           )}
           {activeButton === "button1" && (
             <div className="create_account_button">
-              <button className="button" onClick={()=>navigate('/buyer-signup')}>
-                Create account
+              <button className="button" onClick={()=>navigate('/buyer/productlist')}>
+              Get Started
                 <div className="arrow-wrapper">
                   <div className="arrow"></div>
                 </div>
@@ -71,8 +71,8 @@ function Getstarted() {
           )}
           {activeButton === "button2" && (
             <div className="create_account_button">
-              <button className="button" onClick={()=>navigate('/seller-signup')}>
-                Create account
+              <button className="button" onClick={()=>navigate('/seller/welcome')}>
+                Get Started
                 <div className="arrow-wrapper">
                   <div className="arrow"></div>
                 </div>

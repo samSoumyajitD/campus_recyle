@@ -46,7 +46,7 @@ function ActivitySection() {
     password: "",
     confirmpassword: "",
     otp: "",
-    accounttype: "Buyer"
+   
   })
 
   const [verificationStage, setVerificationStage] = useState(false);
@@ -117,10 +117,10 @@ function ActivitySection() {
           password: "",
           confirmpassword: "",
           otp: "",
-          accounttype: "Buyer"
+         
         })
         setloading(false);
-        navigate('/buyer');
+        navigate('/');
       }else{
         if(responseObj.data.message === "User already Registered"){
           setErrorMsg({
@@ -157,7 +157,7 @@ function ActivitySection() {
         localStorage.setItem("campusrecycletoken", responseObj.data.token);
         localStorage.setItem("campusrecycleuser", JSON.stringify(responseObj.data.data));
         setloading(false);
-        navigate('/buyer/welcome');
+        navigate('/getstarted');
       }else{
         if(responseObj.data.message === "User Not Registered"){
           setErrorMsg({

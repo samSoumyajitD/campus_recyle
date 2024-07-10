@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import "./BuyerSidebar.css";
+import "./StudentprofileSidebar.css";
 import { LogOut, Heart, UserRound, ShoppingCart, Package, Star } from 'lucide-react';
 
 function BuyerSidebar() {
@@ -24,7 +24,7 @@ function BuyerSidebar() {
       </div>
       <div class="buyer-sidebar-navigation">
         <nav class="navigation">
-          <Link to={'/buyer/buyer-profile'}>
+          <Link to={'/student-profile'}>
             <UserRound size={20}/>
             <span>My Profile</span>
           </Link>
