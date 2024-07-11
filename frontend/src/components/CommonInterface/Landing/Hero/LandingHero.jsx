@@ -21,7 +21,7 @@ function LandingHero() {
                 <div className='landing-hero-left-des'>
                     Network with peers, Learn with community and get access to Internships/ Jobs
                 </div>
-                <button className="landing-hero-btn" onClick={()=>navigate('/accountoptions')}>
+                <button className="landing-hero-btn" onClick={()=>navigate('/student-signup')}>
                     Get Started &rarr;
                 </button>
             </div>

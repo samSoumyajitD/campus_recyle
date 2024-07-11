@@ -1,11 +1,44 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './BuyerProductView.css';
 import { Trophy, Flame, Flower2, Sparkle, GraduationCap, Briefcase } from 'lucide-react';
 import { apiConnector } from "../../../utils/Apiconnecter";
 import { authroutes } from "../../../apis/apis";
+import { useParams } from 'react-router-dom';
 
 function BuyerProductView(props) {
+    const [isRequested, setIsRequested] = useState(false);
+
+    const { productid } = useParams();
+
+    const fetchAllProductrequests = async() => {
+        console.log("calling fetch")
+        try {
+            const api_header = { 
+              Authorization: `Bearer ${localStorage.getItem('campusrecycletoken')}`,
+              "Content-Type": "multipart/form-data"
+            };
+            const bodyData = {
+                // Need to write something
+            }
+            const response = await apiConnector("POST", authroutes.GET_ALL_SENT_PRODUCT_REQUESTS, bodyData, api_header);
+            console.log(response.data);
+            if (response.data.success) {
+                console.log("Requests fetched successfully");
+                for(let data of response.data.data){
+                    console.log("data: ", productid);
+                    if(data.product._id === productid) {
+                        setIsRequested(true);
+                    }
+                }
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     const handleProductRequest = async() => {
+        if(isRequested) return;
+
         const user = localStorage.getItem('campusrecycleuser');
         const userObj = JSON.parse(user);
         const buyerEmail = userObj.email;
@@ -23,11 +56,16 @@ function BuyerProductView(props) {
             console.log(response.data);
             if (response.data.success) {
               alert("Product requested");
+              setIsRequested(true);
             }
           } catch (error) {
             console.log(error);
           }
     }
+
+    useEffect(()=>{
+        fetchAllProductrequests();
+    }, []);
   return (
     <div className='buyer-product-view'>
         <div className='buyer-product-view-container'>
@@ -133,8 +171,8 @@ function BuyerProductView(props) {
                             &#x20B9;{props.product && props.product.price} Per Product
                         </h5>
                         <p>{props.product && props.product.quantity} left - {props.product && props.product.status}</p>
-                        <button className='btn' onClick={handleProductRequest}>
-                            Request
+                        <button className='btn' onClick={handleProductRequest} disabled={isRequested} style={{ cursor: isRequested ? 'no-drop' : 'pointer' }}>
+                            {isRequested ? 'Requested' : 'Request'}
                         </button>
                     </div>
                 </div>

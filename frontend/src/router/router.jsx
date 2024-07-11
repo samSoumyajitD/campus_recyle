@@ -29,8 +29,8 @@ const router = createBrowserRouter([
     
       { path: 'getStarted', element:  <Getstart /> },
   
-      { path: 'buyer-login', element: <LoginSignup /> },
-      { path: 'buyer-signup', element: <LoginSignup /> },
+      { path: 'student-login', element: <LoginSignup /> },
+      { path: 'student-signup', element: <LoginSignup /> },
       { path: 'forgotpassword', element: <ForgotPassword /> },
       { path: 'updatepassword/:token', element: <UpdatePassword /> },
       { path: 'student-profile', element: <Studentprofile /> },

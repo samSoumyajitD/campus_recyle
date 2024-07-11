@@ -42,7 +42,7 @@ function LandingHowHelps() {
             </div>
         </div>
         <div>
-            <button className="landing-how-helps-btn" onClick={()=>navigate('/accountoptions')}>Get Started</button>
+            <button className="landing-how-helps-btn" onClick={()=>navigate('/student-signup')}>Get Started</button>
         </div>
     </div>
   )
