@@ -1,5 +1,6 @@
 .getstarted-page{
     display: flex;
+    
 }
 .getstarted-button{
     display: grid;
@@ -17,6 +18,7 @@
 .sidebar-button-text{
     padding: 8px 20px;
 }
+
 .sidebar-button-subtext{
     font-weight: 600;
 }
@@ -26,10 +28,16 @@
     font-size: 40px;
     font-weight: 900;
     max-width: 470px;
+    color: #068932;
+    background: -webkit-linear-gradient(right, #32C766, #068932);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-style: normal;
 }
 .getstarted-page-subheadtext{
-    font-weight: 400;
+    font-weight: 500;
     padding-top: 20px;
+    letter-spacing: 2px;
 }
 .sidebar-button {
     border-radius: 10px;
@@ -39,11 +47,12 @@
     display: flex;
     margin-top: 2rem;
     border: none;
+    background-color: #fff;
    
 }
 
 .sidebar-button.active {
-    border: 1px solid #000; /* Add the border for active state */
+    border: 2px solid #48a539; /* Add the border for active state */
 }
 
 .sidebar-button:hover {
@@ -117,13 +126,13 @@
 
   
 .button {
-    --primary-color: #645bff;
+    --primary-color: #068932;
     --secondary-color: #fff;
-    --hover-color: #111;
+    --hover-color: #2a6122;
     --arrow-width: 10px;
     --arrow-stroke: 2px;
     box-sizing: border-box;
-    border: 0;
+    border: 2px solid #1BA94C;
     border-radius: 10px;
     color: var(--secondary-color);
     padding: 1em 1.8em;
@@ -180,8 +189,18 @@
     height: 100vh;
     width: 30%;
     color: #fff;
-    background-color: #000;
+    background-color:#48a539;
 }
 .sidebar{
     width: 70%;
+}
+.content-button1{
+height: 550px;
+width: 650px;
+  position: absolute;
+  top: 14%;
+right: 5%;
+border: 2px solid #38802c;
+
+border-radius: 20px;
 }

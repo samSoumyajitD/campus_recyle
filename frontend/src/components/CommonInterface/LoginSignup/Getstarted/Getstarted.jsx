@@ -82,8 +82,14 @@ function Getstarted() {
         </div>
       </div>
       <div className="content1">
-        {activeButton === "button1" && <div>Content for Button 1</div>}
-        {activeButton === "button2" && <div>Content for Button 2</div>}
+        {activeButton === "button1" &&
+        <div className="content-button1">
+
+       
+          
+          
+          </div>}
+        {activeButton === "button2" && <div className="content-button1"></div>}
       </div>
     </div>
   );
