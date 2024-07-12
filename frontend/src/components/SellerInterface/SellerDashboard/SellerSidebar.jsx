@@ -1,16 +1,39 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { LogOut, PackagePlus, CircleGauge, Package, PackageSearch, ChevronDown, Globe } from 'lucide-react';
-import './SellerSidebar.css'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import './SellerSidebar.css';
 
 function SellerSidebar() {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    toast.info('🚀 You have successfully logged out. See you soon!', {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+    });
+    localStorage.removeItem('campusrecycletoken');
+    localStorage.removeItem('campusrecycleuser');
+    setTimeout(() => {
+      navigate('/');
+    }, 3000); // Delay to allow the toast message to be visible
+  };
+
   return (
     <div className="seller-sidebar-main">
+      <ToastContainer />
       <div className="logo">
         <h5>Campus Recycle</h5>
       </div>
-      <div class="seller-sidebar-navigation">
-        <nav class="navigation">
+      <div className="seller-sidebar-navigation">
+        <nav className="navigation">
           <span>
             <p>MAIN MENU</p>
             <ChevronDown size={15}/>
@@ -42,7 +65,7 @@ function SellerSidebar() {
               <Package size={20}/>
               <span>Active Requests</span>
             </Link>
-            <Link to='/'>
+            <Link className="logout-button" onClick={handleLogout}>
               <LogOut size={20}/>
               <span>Logout</span>
             </Link>
@@ -50,7 +73,7 @@ function SellerSidebar() {
         </nav>
       </div>
     </div>
-  )
+  );
 }
 
-export default SellerSidebar
+export default SellerSidebar;

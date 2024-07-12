@@ -1,25 +1,47 @@
 import React, { useEffect, useState } from "react";
 import "./BuyerNavbar.css";
 import { Menu } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function BuyerNavbar() {
   const [profilePicture, setProfilePicture] = useState(null);
   const [profileDrop, setProfileDrop] = useState(false);
+  const [activeLink, setActiveLink] = useState('');
+  const navigate = useNavigate();
+
   const toggleProfileDrop = () => {
-    if (profileDrop) {
-      setProfileDrop(false);
-    } else {
-      setProfileDrop(true);
-    }
+    setProfileDrop(!profileDrop);
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     const user = JSON.parse(localStorage.getItem("campusrecycleuser"));
-    setProfilePicture(user.image);
+    setProfilePicture(user?.image);
   }, []);
+
+  const handleLogout = () => {
+    toast.info('🚀 You have successfully logged out. See you soon!', {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+    });
+    localStorage.removeItem('campusrecycletoken');
+    localStorage.removeItem('campusrecycleuser');
+    setActiveLink('logout');
+    setTimeout(() => {
+      navigate('/');
+    }, 3000); // Delay to allow the toast message to be visible
+  };
+
   return (
     <div className="buyer-navbar">
+      <ToastContainer />
       <div className="buyer-navbar-logo">
         <p>Campus Recycle</p>
       </div>
@@ -27,7 +49,7 @@ function BuyerNavbar() {
         <Link
           to="/buyer/productlist"
           className={`buyer-navbar-options-item ${
-            window.location.pathname === "/buyer/products" ? "active" : ""
+            window.location.pathname === "/buyer/productlist" ? "active" : ""
           }`}
         >
           Products
@@ -48,7 +70,13 @@ function BuyerNavbar() {
           <div className="dropdown">
             <Link to="/student-profile">See Profile</Link>
             <Link to="/seller/seller-dashboard">Switch to Seller</Link>
-            <Link to="/">Logout</Link>
+            <Link
+              to="#"
+              onClick={handleLogout}
+              className={activeLink === 'logout' ? 'active' : ''}
+            >
+              Logout
+            </Link>
           </div>
         )}
       </div>
