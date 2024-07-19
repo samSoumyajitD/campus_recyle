@@ -18,6 +18,30 @@
   align-items: center;
   color: black;
 }
+.seller-sidebar-navigation .navigation .logout-button {
+  background: none;
+  border: none;
+  color: inherit;
+  display: flex;
+  align-items: center;
+  padding: .5rem 1rem;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.seller-sidebar-navigation .navigation .logout-button span {
+  margin-left: 0.5rem;
+}
+
+.seller-sidebar-navigation .navigation .logout-button:focus,
+.seller-sidebar-navigation .navigation .logout-button:hover {
+  color: #f00; /* Example color for hover/focus state */
+  font-weight: bold;
+}
+
+.seller-sidebar-navigation .navigation .logout-button:focus {
+  outline: none;
+}
 
 @media (max-width: 1199.98px) {
   .seller-sidebar-main {

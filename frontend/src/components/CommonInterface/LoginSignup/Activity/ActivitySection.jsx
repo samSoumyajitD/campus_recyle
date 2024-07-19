@@ -108,7 +108,7 @@ function ActivitySection() {
 
       console.log(responseObj.data);
       if(responseObj.data.success){
-        // localStorage.setItem("campusrecycletoken", responseObj.data.token);
+
         console.log("success");
         setSignUpDetails({
           email: "",
