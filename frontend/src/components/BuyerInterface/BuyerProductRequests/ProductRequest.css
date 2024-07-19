@@ -60,7 +60,7 @@
 }
 
 .requested-product-item .requested-product-item-btns{
-    width: 30%;
+    width: 40%;
     display: flex;
     justify-content: end;
     align-items: center;
@@ -83,7 +83,7 @@
     background-color: black;
     border: 2px solid black;
     border-radius: 5px;
-    padding: 10px 20px;
+    padding: 6px 20px;
     color: white;
     display: flex;
     justify-content: center;
@@ -146,9 +146,56 @@
     border-radius: 5px;
     padding: 5px 20px;
     color: white;
+    margin: 5px;
 }
 
 .item-badge-product-request{
     position: absolute;
     
+}
+
+.modal-body .complete-transaction-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+.modal-body .complete-transaction-container .otp-input{
+    padding: 5px;
+    border: 1px solid rgb(210, 210, 210);
+    border-radius: 8px;
+    width: 10%;
+    margin: 5px;
+    text-align: center;
+}
+
+.modal-body .complete-transaction-container .otp-input:focus {
+    border: 1px solid rgb(179, 179, 179);
+}
+
+.modal-body .complete-transaction-container .otp-input::-webkit-outer-spin-button,
+.modal-body .complete-transaction-container .otp-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.modal-body .complete-transaction-footer button{
+    padding: 8px 15px;
+    color: white;
+    background-color: black;
+    border-radius: 8px;
+    border: 2px solid black;
+    margin-top: 1rem;
+}
+
+.modal-body .complete-transaction-footer-err-box {
+    color: red;
+    font-size: small;
+}
+
+.modal-body .report-container textarea{
+    border: 1px solid rgb(210, 210, 210);
+    border-radius: 5px;
+    padding: 10px;
 }
