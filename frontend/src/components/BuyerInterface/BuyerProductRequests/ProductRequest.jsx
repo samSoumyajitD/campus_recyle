@@ -53,7 +53,7 @@ function ProductRequest() {
     }, []);
   return (
     <div className='buyer-product-request'>
-        <h4>All Requests</h4>
+        <h4 style={{ margin: '1rem 0.5rem' }}>All Requests</h4>
         <div className="buyer-product-request-container">
             {
                 requests.map((request, i)=>{

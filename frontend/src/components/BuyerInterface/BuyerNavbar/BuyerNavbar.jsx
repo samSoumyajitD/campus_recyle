@@ -54,7 +54,7 @@ function BuyerNavbar() {
         >
           Products
         </Link>
-        <Link className="buyer-navbar-options-item">Favourites</Link>
+        <Link className="buyer-navbar-options-item" to='/buyer/product-requests' >Your Requests</Link>
         <Link className="buyer-navbar-options-item">About</Link>
         <Link className="buyer-navbar-options-item">Reviews</Link>
       </div>

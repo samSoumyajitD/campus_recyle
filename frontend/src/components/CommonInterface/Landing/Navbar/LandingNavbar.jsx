@@ -44,8 +44,8 @@ function LandingNavbar() {
                 </div>
             </div>
             <div className='landing-navbar-right-btn-sec'>
-                <button className='landing-navbar-right-btn-login' onClick={e => navigate('/buyer-login')}>Log in</button>
-                <button className='landing-navbar-right-btn-signup' onClick={e => navigate('/buyer-signup')}>Sign Up</button>
+                <button className='landing-navbar-right-btn-login' onClick={e => navigate('/student-login')}>Log in</button>
+                <button className='landing-navbar-right-btn-signup' onClick={e => navigate('/student-signup')}>Sign Up</button>
             </div>
             <Menu className='landing-navbar-right-hammenu'size={30} onClick={toggleShowNav}/>
         </div>

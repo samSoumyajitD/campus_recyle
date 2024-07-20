@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Trash2 } from "lucide-react";
+import React, { useEffect, useRef, useState } from "react";
+import { Trash2, Flag } from "lucide-react";
 import { apiConnector } from "../../../utils/Apiconnecter";
 import { authroutes } from "../../../apis/apis";
 import Spinner from "react-bootstrap/Spinner";
@@ -13,6 +13,30 @@ function ProductRequestElim({ request, handleDeleteProductRequest }) {
     time: "",
     date: "",
   });
+
+  const correctOTP = "458965";
+  const [otp, setOtp] = useState(new Array(3).fill(""));
+  const [otpError, setOtpError] = useState(null);
+  const otpBoxReference = useRef([]);
+
+  function handleChange(value, index) {
+    let newArr = [...otp];
+    newArr[index] = value;
+    setOtp(newArr);
+
+    if (value && index < 3 - 1) {
+      otpBoxReference.current[index + 1].focus();
+    }
+  }
+
+  function handleBackspaceAndEnter(e, index) {
+    if (e.key === "Backspace" && !e.target.value && index > 0) {
+      otpBoxReference.current[index - 1].focus();
+    }
+    if (e.key === "Enter" && e.target.value && index < 3 - 1) {
+      otpBoxReference.current[index + 1].focus();
+    }
+  }
 
   const handleScheduleOnchange = (e) => {
     setScheduleFormData({
@@ -48,7 +72,7 @@ function ProductRequestElim({ request, handleDeleteProductRequest }) {
         console.log("Meeting Scheduled successfully");
         setIsScheduled(true);
         setIsLoading(false);
-      }else{
+      } else {
         setIsLoading(false);
       }
     } catch (error) {
@@ -57,7 +81,7 @@ function ProductRequestElim({ request, handleDeleteProductRequest }) {
     }
   };
 
-  const handleDeleteSchedule = async() => {
+  const handleDeleteSchedule = async () => {
     setIsLoading(true);
     try {
       const api_header = {
@@ -65,7 +89,7 @@ function ProductRequestElim({ request, handleDeleteProductRequest }) {
         "Content-Type": "multipart/form-data",
       };
       const bodyData = {
-        requestid: request._id
+        requestid: request._id,
       };
       const response = await apiConnector(
         "POST",
@@ -78,14 +102,14 @@ function ProductRequestElim({ request, handleDeleteProductRequest }) {
         console.log("Scheduled meeting deleted successfully");
         setIsScheduled(false);
         setIsLoading(false);
-      }else{
+      } else {
         setIsLoading(false);
       }
     } catch (error) {
       console.log(error);
       setIsLoading(false);
     }
-  }
+  };
 
   const fetchScheduleData = async () => {
     try {
@@ -111,6 +135,20 @@ function ProductRequestElim({ request, handleDeleteProductRequest }) {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const submitCompleteOTP = () => {
+    if (otp === correctOTP) {
+      setOtpError("");
+      alert("Transaction Successfull");
+    } else {
+      setOtpError("Wrong Completion Code Please Check Again");
+    }
+  };
+
+  const [reportBody, setReportBody] = useState("");
+  const submitProductReport = () => {
+    console.log(reportBody);
   };
 
   useEffect(() => {
@@ -165,6 +203,24 @@ function ProductRequestElim({ request, handleDeleteProductRequest }) {
               )}
             </button>
           )}
+          {isScheduled && (
+            <button
+              className="schedule-btn"
+              data-bs-toggle="modal"
+              data-bs-target={`#schedule_data_complete_request_modal-${request._id}`}
+            >
+              Complete
+            </button>
+          )}
+          {isScheduled && (
+            <button
+              className="delete-btn"
+              data-bs-toggle="modal"
+              data-bs-target={`#schedule_data_report_product_modal-${request._id}`}
+            >
+              <Flag />
+            </button>
+          )}
           <button
             className="delete-btn"
             data-bs-toggle="modal"
@@ -174,7 +230,7 @@ function ProductRequestElim({ request, handleDeleteProductRequest }) {
           </button>
         </div>
       </div>
-      
+
       <div
         class="modal fade"
         id={`delete_product_request_modal-${request._id}`}
@@ -243,7 +299,9 @@ function ProductRequestElim({ request, handleDeleteProductRequest }) {
                   <div className="schedule-data-view-component-content">
                     <div>
                       <b>Name </b>
-                      <p>{request.seller.firstname + request.seller.lastname} </p>
+                      <p>
+                        {request.seller.firstname + request.seller.lastname}{" "}
+                      </p>
                     </div>
                     <div>
                       <b>Email </b>
@@ -273,8 +331,111 @@ function ProductRequestElim({ request, handleDeleteProductRequest }) {
                   </div>
                 </div>
                 <div className="schedule-data-view-buttons">
-                  <button data-bs-dismiss="modal" onClick={handleDeleteSchedule}>Delete</button>
+                  <button
+                    data-bs-dismiss="modal"
+                    onClick={handleDeleteSchedule}
+                  >
+                    Delete
+                  </button>
                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Complete Transaction Modal Starts here */}
+      <div
+        class="modal fade"
+        id={`schedule_data_complete_request_modal-${request._id}`}
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">
+                Complete Transaction
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <div className="complete-transaction-container">
+                {otp.map((digit, index) => (
+                  <input
+                    key={index}
+                    value={digit}
+                    maxLength={1}
+                    onChange={(e) => handleChange(e.target.value, index)}
+                    onKeyUp={(e) => handleBackspaceAndEnter(e, index)}
+                    ref={(reference) =>
+                      (otpBoxReference.current[index] = reference)
+                    }
+                    className="otp-input"
+                    type="number"
+                  />
+                ))}
+                {otp.map((digit, index) => (
+                  <input
+                    key={index}
+                    value={0}
+                    maxLength={1}
+                    className="otp-input"
+                    type="password"
+                  />
+                ))}
+              </div>
+              <div className="complete-transaction-footer-err-box">
+                {otpError}
+              </div>
+              <div className="complete-transaction-footer">
+                <button onClick={submitCompleteOTP}>Submit</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Report Product Modal starts here */}
+      <div
+        class="modal fade"
+        id={`schedule_data_report_product_modal-${request._id}`}
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">
+                Report Product
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <div className="report-container">
+                <textarea
+                  name="product-report"
+                  id="product-report"
+                  rows={5}
+                  cols={55}
+                  value={reportBody}
+                  onChange={(e) => setReportBody(e.target.value)}
+                ></textarea>
+              </div>
+              <div className="complete-transaction-footer">
+                <button onClick={submitProductReport}>Report</button>
               </div>
             </div>
           </div>
