@@ -7,6 +7,7 @@ import Spinner from "react-bootstrap/Spinner";
 function ProductrequestListItem({ request, handleDeleteProductRequest }) {
   const [isScheduled, setIsScheduled] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingOTP, setIsLoadingOTP] = useState(false);
   const [scheduleData, setScheduleData] = useState(null);
   const [scheduleFormData, setScheduleFormData] = useState({
     venue: "",
@@ -113,6 +114,38 @@ function ProductrequestListItem({ request, handleDeleteProductRequest }) {
     }
   };
 
+  const sendTransactionOTP = async (buyeremail, productid) => {
+    setIsLoadingOTP(true);
+    console.log('OTP Details: ', buyeremail, productid);
+    try {
+      const api_header = {
+        Authorization: `Bearer ${localStorage.getItem("campusrecycletoken")}`,
+        "Content-Type": "multipart/form-data",
+      };
+      const bodyData = {
+        buyermail: buyeremail,
+        productid: productid
+      };
+      const response = await apiConnector(
+        "POST",
+        authroutes.SEND_TRANSACTION_OTP,
+        bodyData,
+        api_header
+      );
+      console.log(response.data);
+      if (response.data.success) {
+        console.log("OTP sent successfully");
+        setIsScheduled(true);
+        setIsLoadingOTP(false);
+      }else{
+        setIsLoadingOTP(false);
+      }
+    } catch (error) {
+      console.log(error);
+      setIsLoadingOTP(false);
+    }
+  }
+
   useEffect(() => {
     fetchScheduleData();
   }, []);
@@ -173,6 +206,17 @@ function ProductrequestListItem({ request, handleDeleteProductRequest }) {
             >
               Get Schedule Data
               {isLoading && (
+                <Spinner className="product-meet-schedule-spinner" />
+              )}
+            </button>
+          )}
+          {isScheduled && (
+            <button
+              className="schedule-btn"
+              onClick={() => sendTransactionOTP(request.buyer.email, request.product._id)}
+            >
+              Send OTP
+              {isLoadingOTP && (
                 <Spinner className="product-meet-schedule-spinner" />
               )}
             </button>

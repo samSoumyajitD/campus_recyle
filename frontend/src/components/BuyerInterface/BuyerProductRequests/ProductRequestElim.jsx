@@ -14,17 +14,17 @@ function ProductRequestElim({ request, handleDeleteProductRequest }) {
     date: "",
   });
 
-  const correctOTP = "458965";
-  const [otp, setOtp] = useState(new Array(3).fill(""));
+  const [otp, setOtp] = useState(new Array(6).fill(""));
   const [otpError, setOtpError] = useState(null);
   const otpBoxReference = useRef([]);
+  const otpTabCloseBtn = useRef(null);
 
   function handleChange(value, index) {
     let newArr = [...otp];
     newArr[index] = value;
     setOtp(newArr);
 
-    if (value && index < 3 - 1) {
+    if (value && index < 6 - 1) {
       otpBoxReference.current[index + 1].focus();
     }
   }
@@ -33,7 +33,7 @@ function ProductRequestElim({ request, handleDeleteProductRequest }) {
     if (e.key === "Backspace" && !e.target.value && index > 0) {
       otpBoxReference.current[index - 1].focus();
     }
-    if (e.key === "Enter" && e.target.value && index < 3 - 1) {
+    if (e.key === "Enter" && e.target.value && index < 6 - 1) {
       otpBoxReference.current[index + 1].focus();
     }
   }
@@ -137,12 +137,34 @@ function ProductRequestElim({ request, handleDeleteProductRequest }) {
     }
   };
 
-  const submitCompleteOTP = () => {
-    if (otp === correctOTP) {
-      setOtpError("");
-      alert("Transaction Successfull");
-    } else {
-      setOtpError("Wrong Completion Code Please Check Again");
+  const submitCompleteOTP = async () => {
+    try {
+      const api_header = {
+        Authorization: `Bearer ${localStorage.getItem("campusrecycletoken")}`,
+        "Content-Type": "multipart/form-data",
+      };
+      const bodyData = {
+        buyermail: request.buyer.email,
+        productid: request.product._id,
+        otp: otp.join('')
+      };
+      
+      const response = await apiConnector(
+        "POST",
+        authroutes.VERIFY_TRANSACTION_OTP,
+        bodyData,
+        api_header
+      );
+      console.log(response.data);
+      if (response.data.success) {
+        console.log("OTP Matched!!!");
+        handleDeleteProductRequest(request._id);
+        otpTabCloseBtn.current.click();
+      }else{
+        setOtpError("Wrong OTP! Please enter the correct one");
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -363,6 +385,7 @@ function ProductRequestElim({ request, handleDeleteProductRequest }) {
                 class="btn-close"
                 data-bs-dismiss="modal"
                 aria-label="Close"
+                ref={otpTabCloseBtn}
               ></button>
             </div>
             <div class="modal-body">
@@ -381,7 +404,7 @@ function ProductRequestElim({ request, handleDeleteProductRequest }) {
                     type="number"
                   />
                 ))}
-                {otp.map((digit, index) => (
+                {/* {otp.map((digit, index) => (
                   <input
                     key={index}
                     value={0}
@@ -389,7 +412,7 @@ function ProductRequestElim({ request, handleDeleteProductRequest }) {
                     className="otp-input"
                     type="password"
                   />
-                ))}
+                ))} */}
               </div>
               <div className="complete-transaction-footer-err-box">
                 {otpError}
