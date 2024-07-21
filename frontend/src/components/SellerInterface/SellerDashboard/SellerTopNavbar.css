@@ -65,3 +65,50 @@
     background-color: #f4f4f4;
     color: black;
 }
+.seller-top-navbar .dropdown {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: 50px;
+    right: 0;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  
+  .seller-top-navbar .dropdown a,
+  .seller-top-navbar .dropdown button {
+    padding: 10px 15px;
+    text-align: left;
+    text-decoration: none;
+    color: #333;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 14px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+  }
+  
+  .seller-top-navbar .dropdown a:hover,
+  .seller-top-navbar .dropdown button:hover,
+  .seller-top-navbar .dropdown a:focus,
+  .seller-top-navbar .dropdown button:focus {
+    background-color: #f0f0f0;
+    outline: none;
+  }
+  
+  .seller-top-navbar .dropdown .logout-button {
+    border: none;
+    background: none;
+    color: #333;
+    cursor: pointer;
+  }
+  
+  .seller-top-navbar .dropdown .logout-button:hover {
+    color: #f00; /* Example color for hover state */
+    font-weight: bold;
+  }
+  
