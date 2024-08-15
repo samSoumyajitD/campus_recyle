@@ -1,6 +1,7 @@
 .about{
   justify-content: center;
   text-align: center;
+  margin-bottom: 8rem;
 }
 .about_head1{
   font-size: 32px;
@@ -15,8 +16,9 @@
   font-weight: 400;
 }
 .about_content{
-  text-align: center;
+  text-align: left;
   margin: 2rem 8rem;
-  font-size: 22px;
+  font-size: 18px;
   color: #abb8c3;
+  list-style: none;
 }
