@@ -46,6 +46,7 @@ function ActivitySection() {
     password: "",
     confirmpassword: "",
     otp: "",
+    accounttype: "Buyer"
    
   })
 
@@ -100,6 +101,7 @@ function ActivitySection() {
       return setErrorMsg({msg: "Incorrect OTP", type: "otp did not matched"});
     }
     try {
+      console.log("data being sent: ", signUpDetails);
       const responseObj = await apiConnector(
         "POST",
         authroutes.SIGNUP_API,
@@ -117,10 +119,11 @@ function ActivitySection() {
           password: "",
           confirmpassword: "",
           otp: "",
+          accounttype: "Buyer"
          
         })
         setloading(false);
-        navigate('/');
+        navigate('/getstarted');
       }else{
         if(responseObj.data.message === "User already Registered"){
           setErrorMsg({
@@ -234,8 +237,8 @@ function ActivitySection() {
           {
             verificationStage &&
             <form onSubmit={handleSignup}>
-              <h1>Verify Mobile</h1>
-              <input type="text" placeholder="First Name" value={otp} onChange={(e)=>setOtp(e.target.value)} required/>
+              <h1>Verify Email</h1>
+              <input type="text" placeholder="Enter OTP Sent to Your Email" value={otp} onChange={(e)=>setOtp(e.target.value)} required/>
               <p className="login-signup-error-msg">{errorMsg.type === 'otp did not matched' ? errorMsg.msg : ''}</p>
               <button type="submit" className={loading ? 'btn-disabled' : ''}>Verify {loading && <Spinner className="login-signup-btn-spinner" size="sm" animation="border" />}</button>
               <p className="activity-donthaveaccnt">
