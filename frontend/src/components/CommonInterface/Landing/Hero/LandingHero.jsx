@@ -10,16 +10,16 @@ function LandingHero() {
             <div>
                 <div className='landing-hero-left-heading'>
                     <div>
-                        <span>Get quality</span>
-                        <span className='blue'> Internships</span>
+                        <span>Buy and Sell</span>
+                        <span className='green'> Quality Items</span>
                     </div>
                     <div>
-                        <span className='blue'>& Jobs</span>
-                        <span> in 3 steps</span>
+                        <span className='green'>on Campus</span>
+                        <span> in Simple Steps</span>
                     </div>
                 </div>
                 <div className='landing-hero-left-des'>
-                    Network with peers, Learn with community and get access to Internships/ Jobs
+                    Connect with Peers, Trade with the Community, and Access Exclusive Campus Deals
                 </div>
                 <button className="landing-hero-btn" onClick={()=>navigate('/student-signup')}>
                     Get Started &rarr;

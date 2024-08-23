@@ -25,7 +25,7 @@
 .review{
     display: flex;
     flex-direction: column;
-    width: 55%;
+    width: 65%;
     border: 2px solid #c8d6e5;
     border-radius: 5px;
     padding: 30px;
@@ -50,7 +50,7 @@
 }
 
 .landing-review-marquee{
-    height: 500px;
+    height: 530px;
 }
 
 .review-user-about{

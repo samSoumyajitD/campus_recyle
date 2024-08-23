@@ -20,8 +20,8 @@
     font-weight: 600;
 }
 
-.blue{
-    color: #478df3;
+.green{
+    color: #48A539;
 }
 
 .landing-hero-left-des{
@@ -32,8 +32,8 @@
 }
 
 .landing-hero-btn{
-    border: 2px solid #478df3;
-    background-color: #478df3;
+    border: 2px solid #19A741;
+    background-color: #19A741;
     color: white;
     width: 20%;
     padding: 10px 5px;
@@ -44,8 +44,8 @@
 }
 
 .landing-hero-btn:hover{
-    background-color: #589bff;
-    border: 2px solid #589bff;
+    background-color: #26c453;
+    border: 2px solid #26c453;
 }
 
 @media (max-width: 820px) {
