@@ -1,7 +1,7 @@
 .landing-start-applying{
    
     padding: 50px 10px;
-    background-color: #478df3;
+    background-color: #26c453;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -22,7 +22,7 @@
     margin: 5px 0px;
     display: inline-block;
     position: relative;
-    color: #142683;
+    color: #c5ffd5;
     font-weight: bold;
     font-size: larger;
     cursor: pointer;
@@ -36,7 +36,7 @@
     height: 2px;
     bottom: 0;
     left: 0;
-    background-color: #142683;
+    background-color: #19A741;
     transform-origin: bottom right;
     transition: transform 0.25s ease-out;
 }
@@ -46,11 +46,11 @@
 }
 
 .landing-start-applying-btn{
-    background-color: #142683;
-    color: white;
+    background-color: #007220;
+    color: #c5ffd5;
     margin: 10px 0px;
     padding: 12px 20px;
-    border: 2px solid #142683;
+    border: 2px solid #007220;
     border-radius: 5px;
     font-size: 15px;
     font-weight: 600;

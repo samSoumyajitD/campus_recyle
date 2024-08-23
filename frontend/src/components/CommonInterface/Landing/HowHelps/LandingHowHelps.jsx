@@ -16,15 +16,15 @@ function LandingHowHelps() {
                 <div>
                     <img src={Upskilling} alt="" />
                 </div>
-                <div>Get Upskilled</div>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Doloremque, laboriosam.</p>
+                <div>First-of-Its-Kind Platform</div>
+                <p>Introducing our college's first-ever digital marketplace for reusing items! Say goodbye to needless products and hello to sustainability with our innovative Item Exchange Hub.</p>
             </div>
             <div className="card">
                 <div>
                     <img src={Hassle} alt="" />
                 </div>
-                <div>Get Upskilled</div>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Doloremque, laboriosam.</p>
+                <div>E-Cell Innovation</div>
+                <p>Powered by NIT Agartala’s E-Cell, this initiative is a game-changer for campus sustainability. Let’s set an example for colleges nationwide, showing how innovation can drive sustainability and smart consumption.</p>
             </div>
             <div className="card">
                 <div>

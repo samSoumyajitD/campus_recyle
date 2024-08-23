@@ -3,6 +3,7 @@ import './LandingReviews.css'
 import Marquee from "react-fast-marquee";
 import {CirclePause, CirclePlay, MessageCircleMore} from 'lucide-react';
 // import Commenticon from '../../../images/commenticon.png'
+import ReviewUser from '../../../../images/review_user.jpg';
 
 function LandingReviews() {
     const [playing, setPlaying] = useState(true);
@@ -35,11 +36,11 @@ function LandingReviews() {
                     </div>
                     <div className='review-top-comment-main'>
                         <div className="review-user-image">
-                            <img src="https://web.archive.org/web/20220618182247im_/https://cuvette.tech/assets/images/StudentTestimonial/tsajeet.png" alt="" />
+                            <img src={ReviewUser} alt="" />
                         </div>
                         <div className="review-user-about">
-                            <div className="review-paragraph">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit rerum ex neque rem aliquid molestias nemo, illo ad. Natus, dolor.</div>
-                            <p>AYUSH ARORA</p>
+                            <div className="review-paragraph">Amazing platform for hassle-free buying and selling within campus—convenient, secure, and student-friendly!</div>
+                            <p>NITA USER</p>
                         </div>
                     </div>
                 </div>
@@ -50,11 +51,11 @@ function LandingReviews() {
                     </div>
                     <div className='review-top-comment-main'>
                         <div className="review-user-image">
-                            <img src="https://web.archive.org/web/20220618182247im_/https://cuvette.tech/assets/images/StudentTestimonial/tsajeet.png" alt="" />
+                            <img src={ReviewUser} alt="" />
                         </div>
                         <div className="review-user-about">
-                            <div className="review-paragraph">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit rerum ex neque rem aliquid molestias nemo, illo ad. Natus, dolor.</div>
-                            <p>AYUSH ARORA</p>
+                            <div className="review-paragraph">Amazing platform for hassle-free buying and selling within campus—convenient, secure, and student-friendly!</div>
+                            <p>NITA USER</p>
                         </div>
                     </div>
                 </div>

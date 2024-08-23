@@ -8,6 +8,7 @@ import LandingFaqs from '../components/CommonInterface/Landing/Faqs/LandingFaqs'
 import LandingStartApplying from '../components/CommonInterface/Landing/StartApplying/LandingStartApplying'
 import LandingFooter from '../components/CommonInterface/Landing/LandingFooter/LandingFooter'
 import About from '../components/CommonInterface/Landing/About/About'
+import WhyJoinUs from '../components/CommonInterface/Landing/WhyJoinUs/WhyJoinUs'
 function LandingPage() {
   return (
     <>
@@ -15,8 +16,8 @@ function LandingPage() {
         <LandingHero/>
         <About/>
         <LandingNumbers/>
-        
         <LandingHowHelps/>
+        <WhyJoinUs/>
         <LandingReviews/>
         <LandingFaqs/>
         <LandingStartApplying/>
