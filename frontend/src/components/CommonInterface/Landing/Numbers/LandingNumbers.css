@@ -18,7 +18,7 @@
 }
 
 .landing-numbers-element-number{
-    font-size: 40px;
+    font-size: 32px;
     font-weight: 500;
     margin: 5px 1px;
 }
@@ -55,6 +55,6 @@
         margin-top: 20px;
     }
     .landing-numbers-element-number{
-        font-size: 35px;
+        font-size: 25px;
     }
 }

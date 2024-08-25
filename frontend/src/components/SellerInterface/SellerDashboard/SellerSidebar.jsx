@@ -30,7 +30,7 @@ function SellerSidebar() {
     <div className="seller-sidebar-main">
       <ToastContainer />
       <div className="logo">
-        <h5>Campus Recycle</h5>
+        <img src="../logo.png" alt="" />
       </div>
       <div className="seller-sidebar-navigation">
         <nav className="navigation">

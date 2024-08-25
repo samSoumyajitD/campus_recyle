@@ -246,6 +246,10 @@
 	font-size: large !important;
 }
 
+.activity-logo img{
+	width: 25%;
+}
+
 .carousel.slide{
 	width: 100%;
 }
