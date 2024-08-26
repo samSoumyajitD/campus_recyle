@@ -47,6 +47,10 @@
   margin-bottom: 1rem;
 }
 
+.buyer-sidebar-main .logo img{
+  width: 50%;
+}
+
 .buyer-sidebar-main .logo h5{
   font-size: large;
 }

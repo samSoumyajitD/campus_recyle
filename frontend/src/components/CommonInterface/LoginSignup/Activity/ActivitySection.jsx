@@ -203,7 +203,9 @@ function ActivitySection() {
         id="container"
       >
         <div className="form-container sign-up-container">
-          <span className="activity-logo">Campus Recycle</span>
+          <span className="activity-logo">
+            <img src="./logo.png" alt="" />
+          </span>
           {
             !verificationStage &&
             <form onSubmit={toggleVerificationStage}>
@@ -249,7 +251,9 @@ function ActivitySection() {
           }
         </div>
         <div className="form-container sign-in-container">
-          <span className="activity-logo">Campus Recycle</span>
+          <span className="activity-logo">
+            <img src="./logo.png" alt="" />
+          </span>
           <form onSubmit={handleLogin}>
             <h2>Sign in </h2>
             <div className="social-container">

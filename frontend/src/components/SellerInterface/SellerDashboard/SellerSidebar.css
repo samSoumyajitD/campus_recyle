@@ -73,6 +73,10 @@
   margin-bottom: 1rem;
 }
 
+.seller-sidebar-main .logo img{
+  width: 50%;
+}
+
 .seller-sidebar-main .logo h5 {
   font-size: large;
 }

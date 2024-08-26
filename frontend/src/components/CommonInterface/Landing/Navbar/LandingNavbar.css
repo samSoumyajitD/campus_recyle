@@ -12,12 +12,15 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 25%;
+    width: 30%;
 }
 
 .landing-navbar-left-logo{
-    font-size: x-large;
-    padding-bottom: 5px;
+    width: 70%;
+}
+
+.landing-navbar-left-logo img{
+    width: 70%;
 }
 
 .landing-navbar-left-explore{
@@ -240,8 +243,11 @@
         display: block;
     }
     .landing-navbar-left-logo{
-        font-size: x-large;
-        font-weight: 600;
+        width: 100%;
+    }
+    
+    .landing-navbar-left-logo img{
+        width: 90%;
     }
     
 }
@@ -254,8 +260,11 @@
         width: 80%;
     }
     .landing-navbar-left-logo{
-        font-size: x-large;
-        font-weight: 600;
+        width: 100%;
+    }
+    
+    .landing-navbar-left-logo img{
+        width: 50%;
     }
     .landing-navbar-left{
         width: 55% !important;

@@ -28,7 +28,7 @@ function LandingNavbar() {
     <div className='landing-navbar'>
         <div className="landing-navbar-left">
             <div className="landing-navbar-left-logo">
-                Campus Recycle
+                <img src="./logo.png" alt="" />
             </div>
             <div className="landing-navbar-left-explore">
                 <p>Explore &rarr;</p>
@@ -53,9 +53,9 @@ function LandingNavbar() {
             showHamNav &&
             <div className="landing-hamberger-menu">
                 <div className='landing-hamberger-menu-top'>
-                    <div className="landing-navbar-left-logo">
-                        Campus Recycle
-                    </div>
+                <div className="landing-navbar-left-logo">
+                    <img src="./logo.png" alt="" />
+                </div>
                     <Plus style={{rotate: "45deg"}} size={30} onClick={toggleShowNav}/>
                 </div>
                 <div className="landing-hamberger-menu-btns">

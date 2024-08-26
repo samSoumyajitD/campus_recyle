@@ -38,7 +38,7 @@ function BuyerSidebar() {
     <div className="buyer-sidebar-main">
       <ToastContainer />
       <div className="logo">
-        <h5>Campus Recycle</h5>
+        <img src="./logo.png" alt="" />
       </div>
       <div className="profile-info">
         <img src={userDetails && userDetails.image} alt="" />

@@ -204,3 +204,11 @@ border: 2px solid #38802c;
 
 border-radius: 20px;
 }
+
+.landing-navbar-left-logo-getstarted{
+  width: 30%;
+}
+
+.landing-navbar-left-logo-getstarted img{
+  width: 50%;
+}

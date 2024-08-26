@@ -13,7 +13,9 @@ function Getstarted() {
   return (
     <div className="getstarted-page">
       <div className="sidebar">
-        <div className="landing-navbar-left-logo">Campus Recycle</div>
+          <div className="landing-navbar-left-logo-getstarted">
+              <img src="./logo.png" alt="" />
+          </div>
         <div className="getstarted-page-headtext">
           How do you want to use Campus Recycle?
         </div>
