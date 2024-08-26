@@ -10,7 +10,7 @@ function LandingHowHelps() {
     const navigate = useNavigate();
   return (
     <div className='landing-how-helps'>
-        <h4>How Campus Recycle helps you</h4>
+        <h4>How recyCool helps you</h4>
         <div className="landing-how-helps-cards">
             <div className="card">
                 <div>
@@ -30,15 +30,15 @@ function LandingHowHelps() {
                 <div>
                     <img src={Resume} alt="" />
                 </div>
-                <div>Get Upskilled</div>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Doloremque, laboriosam.</p>
+                <div>Verified Products</div>
+                <p>Get hands-on verified product directly during buying. You can check the quality of the product by yourself.</p>
             </div>
             <div className="card">
                 <div>
                     <img src={EasyMoney} alt="" />
                 </div>
-                <div>Get Upskilled</div>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Doloremque, laboriosam.</p>
+                <div>Cheap Price</div>
+                <p>Get best usable products at cheapest rates possible! Bargain, negotiate, it's all our colege family.</p>
             </div>
         </div>
         <div>
