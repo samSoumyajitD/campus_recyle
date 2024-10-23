@@ -50,18 +50,18 @@ function BuyerSidebar() {
             <UserRound size={20} />
             <span>My Profile</span>
           </Link>
-          <Link to="/reviews" className={location.pathname === '/reviews' ? 'active' : ''}>
+          {/* <Link to="/reviews" className={location.pathname === '/reviews' ? 'active' : ''}>
             <Star size={20} />
             <span>Your Reviews</span>
-          </Link>
+          </Link> */}
           <Link to="/buyer/product-requests" className={location.pathname === '/buyer/product-requests' ? 'active' : ''}>
             <ShoppingCart size={20} />
             <span>Your Product Request</span>
           </Link>
-          <Link to="/wishlists" className={location.pathname === '/wishlists' ? 'active' : ''}>
+          {/* <Link to="/wishlists" className={location.pathname === '/wishlists' ? 'active' : ''}>
             <Heart size={20} />
             <span>Wishlists</span>
-          </Link>
+          </Link> */}
           <Link to="/buyer/productlist" className={location.pathname === '/buyer/productlist' ? 'active' : ''}>
             <Package size={20} />
             <span>Explore</span>

@@ -1,8 +1,9 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./AddProductFrom.css";
 import Spinner from "react-bootstrap/Spinner";
 import { apiConnector } from "../../../utils/Apiconnecter";
 import { authroutes } from "../../../apis/apis";
+import { Cross, X } from "lucide-react";
 
 function AddProductForm() {
   const [isLoading, setIsLoading] = useState(false);
@@ -14,8 +15,32 @@ function AddProductForm() {
     quantity: "",
     categoryid: "",
   });
+  const [isImageAddErr, setIsImageAddErr] = useState(false);
+  const [productImageFiles, setProductImageFiles] = useState([]);
+  const [allCategories, setAllCategories] = useState([]);
+
   const imagesInputRef = useRef();
   const addProductFormRef = useRef();
+
+  const fetchAllCategories = async() => {
+    try {
+        const api_header = { 
+          Authorization: `Bearer ${localStorage.getItem('campusrecycletoken')}`,
+          "Content-Type": "multipart/form-data"
+        };
+        const bodyData = {
+            // Need to write something
+        }
+        const response = await apiConnector("POST", authroutes.GET_ALL_CATEGORIES, bodyData, api_header);
+        console.log(response.data);
+        if (response.data.success) {
+            console.log("Categories fetched successfully");
+            setAllCategories(response.data.data);
+        }
+    } catch (error) {
+        console.log(error);
+    }
+  }
 
   const handleOnChange = (e) => {
     setAddProductData({ ...addProductData, [e.target.name]: e.target.value });
@@ -23,7 +48,13 @@ function AddProductForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if(productImageFiles < 6){
+      return setIsImageAddErr(true);
+    }
+
     setIsLoading(true);
+
     var formData = new FormData();
 
     for (var key in addProductData) {
@@ -31,7 +62,7 @@ function AddProductForm() {
     }
 
     for (let i = 0; i < imagesInputRef.current.files.length; i++) {
-      formData.append('images', imagesInputRef.current.files[i], imagesInputRef.current.files[i].name);
+      formData.append('images', productImageFiles[i], productImageFiles[i].name);
     }
     
     try {
@@ -67,6 +98,30 @@ function AddProductForm() {
       setIsLoading(false);
     }
   };
+
+  const productImagefilesOnchange = (e) => {
+    var files = [];
+    for(let file of productImageFiles){
+      files.push(file);
+    }
+    for(let file of e.target.files){
+      console.log("file: ", file);
+      files.push(file);
+    }
+    setProductImageFiles(files); 
+  }
+
+  const removeProductImageFile = (fileToDelete) => {
+    const allFiles = productImageFiles;
+    const newFiles = allFiles.filter((file)=>file!==fileToDelete);
+
+    setProductImageFiles(newFiles);
+  }
+
+  useEffect(()=>{
+    fetchAllCategories();
+  }, []);
+
   return (
     <div className="add-product-form">
       <form onSubmit={handleSubmit} ref={addProductFormRef}>
@@ -109,13 +164,16 @@ function AddProductForm() {
           <div className="form-block">
             <div className="form-segment">
               <label htmlFor="status">Status</label>
-              <input
-                type="text"
+              <select
                 id="status"
                 name="status"
                 value={addProductData.status}
                 onChange={handleOnChange}
-              />
+              >
+                <option value="For sale">For sale</option>
+                <option value="On hold">On hold</option>
+                <option value="Arriving soon">Arriving soon</option>
+              </select>
             </div>
             <div className="form-segment">
               <label htmlFor="quantity">Quantity</label>
@@ -128,26 +186,47 @@ function AddProductForm() {
               />
             </div>
             <div className="form-segment">
-              <label htmlFor="categoryid">Category Id</label>
-              <input
-                type="text"
+              <label htmlFor="categoryid">Category</label>
+              <select
                 id="categoryid"
                 name="categoryid"
                 value={addProductData.categoryid}
                 onChange={handleOnChange}
-              />
+              >
+                {
+                  allCategories.map((category, i)=>{
+                    return <option value={category.id}>{category.name}</option>
+                  })
+                }
+              </select>
             </div>
           </div>
         </div>
         <div className="add-product-form-attachments">
-          <label htmlFor="">Upload Images</label>
-          <input
-            type="file"
-            accept=".jpg, .png, .jpeg"
-            name="images"
-            ref={imagesInputRef}
-            multiple
-          />
+          <div>
+            <label htmlFor="product_imaged">Upload Images</label>
+            <input
+              type="file"
+              id="product_imaged"
+              accept=".jpg, .png, .jpeg"
+              name="images"
+              ref={imagesInputRef}
+              onChange={(e)=>productImagefilesOnchange(e)}
+              multiple
+              hidden
+            />
+            {
+                productImageFiles.map((file, i)=>{
+                return <div key={i} className="product_img_file_div">
+                  <span>{file.name.slice(0, 30)+'...'}</span>
+                  <X style={{ cursor: 'pointer', margin: '0 5px' }} onClick={()=>removeProductImageFile(file)}/>
+                </div>
+              })
+            }
+            {
+              isImageAddErr && <p style={{ color: 'red', fontSize: '15px', textAlign: 'left' }}>You must add minimum 6 images</p>
+            }
+          </div>
         </div>
         <div className="add-product-form-footer">
           <button

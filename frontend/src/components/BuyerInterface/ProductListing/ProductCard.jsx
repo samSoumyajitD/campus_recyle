@@ -11,7 +11,7 @@ function ProductCard(props) {
         </div>
         <div className='product-card-details'>
             <h4>{props.product && props.product.productname}</h4>
-            <p>{props.product && props.product.productdescription}</p>
+            <p>{props.product && (props.product.productdescription.length > 60 ? props.product.productdescription.slice(0, 57)+'...' : props.product.productdescription)}</p>
             <p className='product-card-details-price'>&#8377; {props.product && props.product.price}</p>
         </div>
     </div>

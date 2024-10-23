@@ -51,7 +51,7 @@ function SellerProductList() {
     const allProductIds = userObj.products;
     console.log(allProductIds);
     setProductIds(allProductIds);
-  }, [navigate, productIds]);
+  }, []);
   return (
     <div className="seller-product-list">
       <div className="list">

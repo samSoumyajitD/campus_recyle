@@ -5,9 +5,11 @@ import { Link, useNavigate } from "react-router-dom";
 import Carousel from "react-bootstrap/Carousel";
 import { Eye } from 'lucide-react';
 import Spinner from "react-bootstrap/Spinner";
+import ReCAPTCHA from "react-google-recaptcha";
 
 import { authroutes } from "../../../../apis/apis";
 import { apiConnector } from "../../../../utils/Apiconnecter";
+
 
 function ActivitySection() {
   const navigate = useNavigate();
@@ -54,6 +56,14 @@ function ActivitySection() {
   
   const toggleVerificationStage = async(e) => {
     e.preventDefault();
+
+    if(!recaptchaVerifiedRegister){
+      return setErrorMsg({
+        msg: "Please verify the captcha",
+        type: 'Captcha not verified while registration'
+      })
+    }
+
     setloading(true);
     try {
       const response = await apiConnector(
@@ -95,6 +105,7 @@ function ActivitySection() {
 
   const handleSignup = async(e) => {
     e.preventDefault();
+    
     setloading(true);
     if(signUpDetails.otp !== otp){
       setloading(false);
@@ -148,7 +159,16 @@ function ActivitySection() {
   }
   const handleLogin = async(e) => {
     e.preventDefault();
+
+    if(!recaptchaVerified){
+      return setErrorMsg({
+        msg: "Please verify the captcha",
+        type: 'Captcha not verified'
+      })
+    }
+
     setloading(true);
+
     try {
       const responseObj = await apiConnector(
         "POST",
@@ -160,6 +180,10 @@ function ActivitySection() {
         localStorage.setItem("campusrecycletoken", responseObj.data.token);
         localStorage.setItem("campusrecycleuser", JSON.stringify(responseObj.data.data));
         setloading(false);
+        setLoginDetails({
+          email: "",
+          password: ""
+        })
         navigate('/getstarted');
       }else{
         if(responseObj.data.message === "User Not Registered"){
@@ -167,11 +191,12 @@ function ActivitySection() {
             msg: "User Not Registered",
             type: 'email does not exists'
           })
+        }else if(responseObj.data.message === "Password is Incorrect"){
+          setErrorMsg({
+            msg: "Password is Incorrect",
+            type: 'wrong password'
+          })
         }
-        setLoginDetails({
-          email: "",
-          password: ""
-        })
         setloading(false);
       }
     } catch (error) {
@@ -189,6 +214,17 @@ function ActivitySection() {
       setPassMatched(true);
     }
   })
+
+
+  const [recaptchaVerified, setRecaptchaVerified] = useState(false);
+  function recaptchaOnchange() {
+    setRecaptchaVerified(true);
+  }
+
+  const [recaptchaVerifiedRegister, setRecaptchaVerifiedRegister] = useState(false);
+  function recaptchaOnchangeRegister() {
+    setRecaptchaVerifiedRegister(true);
+  }
 
   useEffect(()=>{
     if(window.location.pathname.split("-")[1] === 'signup'){
@@ -209,13 +245,13 @@ function ActivitySection() {
           {
             !verificationStage &&
             <form onSubmit={toggleVerificationStage}>
-              <h2>Create Account</h2>
-              <div className="social-container">
+              <h2 style={{ marginBottom: '1rem' }}>Create Account</h2>
+              {/* <div className="social-container">
                 <button className="activity-signin-google-btn">
                   <img src={Googleicon} className="" alt="" /> Sign up with Google
                 </button>
-              </div>
-              <span>or use your email for registration</span>
+              </div> */}
+              {/* <span>or use your email for registration</span> */}
               <input type="text" placeholder="First Name" name="firstname" value={signUpDetails.firstname} onChange={handleOnchangeSignup} required/>
               <input type="text" placeholder="Last Name" name="lastname" value={signUpDetails.lastname} onChange={handleOnchangeSignup} required/>
               <input type="email" placeholder="Email" name="email" value={signUpDetails.email} onChange={handleOnchangeSignup} required/>
@@ -229,6 +265,13 @@ function ActivitySection() {
                 <Eye size={20} style={{cursor: 'pointer'}} onClick={togglePassView}/>
               </div>
               <p className="login-signup-error-msg">{!passMatched && 'Password not matched'}</p>
+              {/* Captcha */}
+              <ReCAPTCHA
+                sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
+                // sitekey={`${process.env.CAPTCHA_SITEKEY}`}
+                onChange={recaptchaOnchangeRegister}
+              />
+              <p className="login-signup-error-msg">{errorMsg.type === 'Captcha not verified while registration' ? errorMsg.msg : ''}</p>
               <button type="submit" className={`${passMatched ? '' : 'btn-disabled'} ${loading ? 'btn-disabled' : ''}`} disabled={!passMatched}>Sign Up {loading && <Spinner className="login-signup-btn-spinner" size="sm" animation="border" />}</button>
               <p className="activity-donthaveaccnt">
                 Already have an account?{" "}
@@ -255,13 +298,13 @@ function ActivitySection() {
             <img src="./logo.png" alt="" />
           </span>
           <form onSubmit={handleLogin}>
-            <h2>Sign in </h2>
-            <div className="social-container">
+            <h2 style={{ marginBottom: '1rem' }}>Sign in </h2>
+            {/* <div className="social-container">
               <button className="activity-signin-google-btn">
                 <img src={Googleicon} className="" alt="" /> Sign in with Google
               </button>
-            </div>
-            <span>or use your account</span>
+            </div> */}
+            {/* <span>or use your account</span> */}
             <input type="email" placeholder="Email" name="email" value={loginDetails.email} onChange={handleOnchangelogin} required/>
             <p className="login-signup-error-msg">{errorMsg.type === 'email does not exists' ? errorMsg.msg : ''}</p>
             <div className="login-signup-password-div">
@@ -269,6 +312,13 @@ function ActivitySection() {
               <Eye size={20} style={{cursor: 'pointer'}} onClick={togglePassView}/>
             </div>
             <p className="login-signup-error-msg">{errorMsg.type === 'wrong password' ? errorMsg.msg : ''}</p>
+            {/* Captcha */}
+            <ReCAPTCHA
+              sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
+              // sitekey={`${process.env.CAPTCHA_SITEKEY}`}
+              onChange={recaptchaOnchange}
+            />
+            <p className="login-signup-error-msg">{errorMsg.type === 'Captcha not verified' ? errorMsg.msg : ''}</p>
             <Link to='/forgotpassword'>Forgot your password?</Link>
             <button type="submit" className={loading ? 'btn-disabled' : ''} >Sign In {loading && <Spinner className="login-signup-btn-spinner" size="sm" animation="border" />}</button>
             <p className="activity-donthaveaccnt">
