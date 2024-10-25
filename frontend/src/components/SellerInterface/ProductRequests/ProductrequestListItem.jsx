@@ -5,6 +5,21 @@ import { authroutes } from "../../../apis/apis";
 import Spinner from "react-bootstrap/Spinner";
 
 function ProductrequestListItem({ request, handleDeleteProductRequest }) {
+  const numToMonthMap = new Map([
+    [1, "Jan"],
+    [2, "Feb"],
+    [3, "Mar"],
+    [4, "Apr"],
+    [5, "May"],
+    [6, "Jun"],
+    [7, "Jul"],
+    [8, "Aug"],
+    [9, "Sep"],
+    [10, "Oct"],
+    [11, "Nov"],
+    [12, "Dec"]
+  ])
+
   const [isScheduled, setIsScheduled] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingOTP, setIsLoadingOTP] = useState(false);
@@ -214,6 +229,7 @@ function ProductrequestListItem({ request, handleDeleteProductRequest }) {
             <button
               className="schedule-btn"
               onClick={() => sendTransactionOTP(request.buyer.email, request.product._id)}
+              style={{ minWidth: '150px' }}
             >
               Send OTP
               {isLoadingOTP && (
@@ -307,7 +323,7 @@ function ProductrequestListItem({ request, handleDeleteProductRequest }) {
                   <div className="edit-product-form-section">
                     <label>Date</label>
                     <input
-                      type="text"
+                      type="date"
                       name="date"
                       value={scheduleFormData.date}
                       onChange={handleScheduleOnchange}
@@ -316,7 +332,7 @@ function ProductrequestListItem({ request, handleDeleteProductRequest }) {
                   <div className="edit-product-form-section">
                     <label>Time</label>
                     <input
-                      type="text"
+                      type="time"
                       name="time"
                       value={scheduleFormData.time}
                       onChange={handleScheduleOnchange}
@@ -382,7 +398,7 @@ function ProductrequestListItem({ request, handleDeleteProductRequest }) {
                     </div>
                     <div>
                       <b>Requested on </b>
-                      <p>{request.requestdate} </p>
+                      <p>{new Date(request.requestdate).getDate()}-{numToMonthMap.get(new Date(request.requestdate).getMonth()+1)}-{new Date(request.requestdate).getFullYear()}</p>
                     </div>
                   </div>
                 </div>

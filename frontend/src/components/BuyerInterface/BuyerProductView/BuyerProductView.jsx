@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import './BuyerProductView.css';
-import { Trophy, Flame, Flower2, Sparkle, GraduationCap, Briefcase } from 'lucide-react';
+import { Trophy, Flame, Flower2, Sparkle, GraduationCap, Briefcase, Plus, Minus } from 'lucide-react';
 import { apiConnector } from "../../../utils/Apiconnecter";
 import { authroutes } from "../../../apis/apis";
 import { useParams } from 'react-router-dom';
 
 function BuyerProductView(props) {
     const [isRequested, setIsRequested] = useState(false);
+    const [productQuantity, setProductQuantity] = useState(0);
 
     const { productid } = useParams();
 
@@ -36,6 +37,16 @@ function BuyerProductView(props) {
         }
     }
 
+    const handleChangeProductQuantity = (action) => {
+        if(action === "inc"){
+            if(productQuantity+1 > props.product.quantity) return;
+            setProductQuantity(productQuantity+1);
+        }else{
+            if(productQuantity-1 < 0) return;
+            setProductQuantity(productQuantity-1);
+        }
+    }
+
     const handleProductRequest = async() => {
         if(isRequested) return;
 
@@ -50,7 +61,8 @@ function BuyerProductView(props) {
             const bodyData = {
                 buyername: buyerEmail,
                 selleremail: props.product.owner.email,
-                productid: props.product._id
+                productid: props.product._id,
+                quantity: productQuantity
             }
             const response = await apiConnector("POST", authroutes.PRODUCT_REQUEST, bodyData, api_header);
             console.log(response.data);
@@ -76,11 +88,11 @@ function BuyerProductView(props) {
                 </div>
                 <div className='buyer-product-view-container-product-image-secondary-first'>
                     <img src={props.product && props.product.images[1]} alt="" />
-                    <img src="https://images.unsplash.com/photo-1515955656352-a1fa3ffcd111?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" />
+                    <img src={props.product && props.product.images[2]} alt="" />
                 </div>
                 <div className='buyer-product-view-container-product-image-secondary-second'>
-                    <img className='img-1' src="https://images.unsplash.com/photo-1585147877975-6acd0a929a46?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" />
-                    <img className='img-2' src="https://images.unsplash.com/photo-1539185441755-769473a23570?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" />
+                    <img className='img-1' src={props.product && props.product.images[3]} alt="" />
+                    <img className='img-2' src={props.product && props.product.images[4]} alt="" />
                 </div>
             </div>
             <div className='buyer-product-view-container-product-details'>
@@ -171,7 +183,18 @@ function BuyerProductView(props) {
                             &#x20B9;{props.product && props.product.price} Per Product
                         </h5>
                         <p>{props.product && props.product.quantity} left - {props.product && props.product.status}</p>
-                        <button className='btn' onClick={handleProductRequest} disabled={isRequested} style={{ cursor: isRequested ? 'no-drop' : 'pointer' }}>
+                        <div className='quantity-input'>
+                            <span className={`quantity-input-btn-plus ${productQuantity+1 > (props.product && props.product.quantity) ? 'disabled' : ''}`} onClick={()=>handleChangeProductQuantity("inc")} >
+                                <Plus/>
+                            </span>
+                            <span className='quantity-input-counter'>
+                                {productQuantity}
+                            </span>
+                            <span className={`quantity-input-btn-minus ${productQuantity-1 < 0 ? 'disabled' : ''}`} onClick={()=>handleChangeProductQuantity("dec")} >
+                                <Minus/>
+                            </span>
+                        </div>
+                        <button className='btn' onClick={handleProductRequest} disabled={isRequested} style={{ cursor: isRequested ? 'no-drop' : 'pointer', backgroundColor: isRequested ? '#63cd81' : '' }}>
                             {isRequested ? 'Requested' : 'Request'}
                         </button>
                     </div>

@@ -61,7 +61,7 @@
 }
 
 .all-product-requests .requested-product-item .requested-product-item-btns{
-    width: 30%;
+    width: 35%;
     display: flex;
     justify-content: end;
     align-items: center;
@@ -69,6 +69,7 @@
 
 .all-product-requests .requested-product-item .requested-product-item-btns button{
     margin: 0px 5px;
+    height: 40px;
 }
 
 .all-product-requests .requested-product-item .requested-product-item-btns .delete-btn{

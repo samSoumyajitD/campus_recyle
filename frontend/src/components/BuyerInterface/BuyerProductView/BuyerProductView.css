@@ -260,3 +260,41 @@
     color: white;
     background-color: #19A741;
 }
+
+.quantity-input {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1rem 0rem;
+}
+
+.quantity-input-btn-plus {
+    background-color: #19A741;
+    color: white;
+    font-weight: 700;
+    padding: 2px;
+    border-radius: 5px 0px 0px 5px;
+    cursor: pointer;
+}
+
+.quantity-input-btn-plus.disabled {
+    background-color: #63cd81;
+}
+
+.quantity-input-btn-minus {
+    background-color: #19A741;
+    color: white;
+    font-weight: 700;
+    padding: 2px;
+    border-radius: 0px 5px 5px 0px;
+    cursor: pointer;
+}
+
+.quantity-input-btn-minus.disabled {
+    background-color: #63cd81;
+}
+
+.quantity-input-counter {
+    border: 1px solid gray;
+    padding: 2px 15px;
+}

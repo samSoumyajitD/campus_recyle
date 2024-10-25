@@ -19,4 +19,5 @@ export const authroutes={
     GET_ALL_SENT_PRODUCT_REQUESTS:BASE_URL+"/conversation/all_send_request",
     SEND_TRANSACTION_OTP:BASE_URL+"/transaction/sendtransotp",
     VERIFY_TRANSACTION_OTP:BASE_URL+"/transaction/verifytransotp",
+    GET_ALL_CATEGORIES:BASE_URL+"/category/getcategories"
 }

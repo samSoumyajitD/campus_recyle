@@ -55,10 +55,13 @@ function ProductRequest() {
     <div className='buyer-product-request'>
         <h4 style={{ margin: '1rem 0.5rem' }}>All Requests</h4>
         <div className="buyer-product-request-container">
-            {
+            {requests.length > 0 &&
                 requests.map((request, i)=>{
                 return <ProductRequestElim key={i} request={request} handleDeleteProductRequest={handleDeleteProductRequest} />
                 })
+            }
+            {
+                requests.length === 0 && <p>No Pending Request</p>
             }
         </div>
     </div>
