@@ -195,7 +195,7 @@
 
 .buyer-product-view-container-product-details-info .meet-your-seller .card{
     width: 60%;
-    height: 30vh;
+    min-height: 20svh;
     display: flex;
     justify-content: center;
     align-items: center;

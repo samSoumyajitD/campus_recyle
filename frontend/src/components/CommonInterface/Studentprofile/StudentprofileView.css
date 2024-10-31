@@ -123,6 +123,22 @@
     padding: 5px 10px;
 }
 
+.profile-view .edit-profile-section .edit-profile-form .edit-profile-input-1 div select {
+    width: 100%;
+    border-radius: 5px;
+    background: transparent;
+    border: 1px solid gray;
+    padding: 5px 10px;
+}
+
+.profile-view .edit-profile-section .edit-profile-form .edit-profile-input-1 div textarea {
+    width: 100%;
+    border-radius: 5px;
+    background: transparent;
+    border: 1px solid gray;
+    padding: 5px 10px;
+}
+
 .profile-view .edit-profile-section .edit-profile-form .edit-profile-input-1 button {
     margin: 1rem 0rem;
     padding: 8px 45px;

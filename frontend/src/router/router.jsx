@@ -19,6 +19,7 @@ import BuyerProductRequests from '../screens/BuyerProductRequests';
 
 import PrivateRoute from './PrivateRoute'; // Adjust the import path as necessary
 import { Outlet } from 'react-router-dom';
+import About from '../screens/About';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -32,6 +33,7 @@ const router = createBrowserRouter([
       { path: 'forgotpassword', element: <ForgotPassword /> },
       { path: 'updatepassword/:token', element: <UpdatePassword /> },
       { path: 'student-profile', element: <PrivateRoute><Studentprofile /></PrivateRoute> },
+      { path: 'about', element: <About /> },
     ],
   },
   { 

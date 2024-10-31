@@ -44,7 +44,13 @@ function BuyerNavbar() {
       <ToastContainer />
       <div className="buyer-navbar">
         <div className="buyer-navbar-logo">
-          <img src="../logo.png" alt="" />
+          <img src="/logo.png" alt="" style={{ cursor: 'pointer' }} onClick={()=>{
+            if(window.location.pathname === '/buyer/productlist'){
+              window.location.reload();
+            }else{
+              navigate('/buyer/productlist');
+            }
+          }} />
         </div>
         <div className="buyer-navbar-options">
           <Link
@@ -56,8 +62,8 @@ function BuyerNavbar() {
             Products
           </Link>
           <Link className="buyer-navbar-options-item" to='/buyer/product-requests' >Your Requests</Link>
-          <Link className="buyer-navbar-options-item">About</Link>
-          <Link className="buyer-navbar-options-item">Reviews</Link>
+          <Link className="buyer-navbar-options-item" to='/about'>About</Link>
+          {/* <Link className="buyer-navbar-options-item">Reviews</Link> */}
         </div>
         <div className="buyer-navbar-accounts">
           <div className="toggle" onClick={toggleProfileDrop}>

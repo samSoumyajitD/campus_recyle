@@ -9,6 +9,8 @@ export const GetContext = () => {
 
 export const ProductProvider = (props) => {
   const [allProducts, setAllProducts] = useState([]);
+  const [product, setProduct] = useState(null);
+  const [searchedProducts, setSearchedProducts] = useState([]);
 
   const getAllProducts = async() => {
     try {
@@ -18,6 +20,7 @@ export const ProductProvider = (props) => {
       // console.log(response.data.data);
       if(response.data.success){
         setAllProducts(response.data.data);
+        setSearchedProducts(response.data.data);
       }else{
         console.log("Invalid Credentials");
       }
@@ -31,7 +34,7 @@ export const ProductProvider = (props) => {
   // }, []);
 
   return (
-    <ProductContext.Provider value={{allProducts, setAllProducts, getAllProducts}}>
+    <ProductContext.Provider value={{allProducts, setAllProducts, getAllProducts, product, setProduct, searchedProducts, setSearchedProducts}}>
       {props.children}
     </ProductContext.Provider>
   );

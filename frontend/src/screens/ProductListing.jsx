@@ -11,10 +11,12 @@ import {
 } from "lucide-react";
 import Fuse from "fuse.js";
 import { useNavigate } from "react-router-dom";
+import { apiConnector } from "../utils/Apiconnecter";
+import { authroutes } from "../apis/apis";
 
 function ProductListing() {
   const context = GetContext();
-  const { allProducts, setAllProducts, getAllProducts } = context;
+  const { allProducts, setAllProducts, getAllProducts, searchedProducts, setSearchedProducts } = context;
 
   const [AlphabeticalsortingOrder, setAlphabeticalSortingOrder] =
     useState("Alphabeticalasc");
@@ -34,13 +36,13 @@ function ProductListing() {
       const fuse = new Fuse(allProducts, options);
       const results = fuse.search(e.target.value);
       console.log("item search result: ", results);
-      let searchedProducts = [];
+      let tempSearchedProducts = [];
       for (let result of results) {
-        searchedProducts.push(result.item);
+        tempSearchedProducts.push(result.item);
       }
-      setAllProducts(searchedProducts);
+      setSearchedProducts(tempSearchedProducts);
     } else {
-      setAllProducts(allProducts);
+      setSearchedProducts(allProducts);
     }
   };
 
@@ -57,6 +59,7 @@ function ProductListing() {
   const [categoryFilterText, setCategoryFilterText] =
     useState("All Categories");
   const [categoryFilter, setCategoryFilter] = useState("");
+
   const handleApplyCategoryFilter = (category, categoryText) => {
     setCategoryFilterText(categoryText);
     setCategoryFilter(category);
@@ -93,9 +96,32 @@ function ProductListing() {
     setAllProducts(sortedData);
   };
 
+  const [allCategories, setAllCategories] = useState([]);
+
+  const fetchAllCategories = async() => {
+    try {
+        const api_header = { 
+          Authorization: `Bearer ${localStorage.getItem('campusrecycletoken')}`,
+          "Content-Type": "multipart/form-data"
+        };
+        const bodyData = {
+            // Need to write something
+        }
+        const response = await apiConnector("POST", authroutes.GET_ALL_CATEGORIES, bodyData, api_header);
+        console.log(response.data);
+        if (response.data.success) {
+            console.log("Categories fetched successfully");
+            setAllCategories(response.data.data);
+        }
+    } catch (error) {
+        console.log(error);
+    }
+  }
+
   const navigate = useNavigate();
 
   useEffect(() => {
+    fetchAllCategories();
     console.log(allProducts);
     getAllProducts();
 
@@ -125,20 +151,17 @@ function ProductListing() {
             </div>
             {isCategoryDropdown && (
               <div className="categories">
-                <li
-                  onClick={() =>
-                    handleApplyCategoryFilter("inventory", "Inventory")
-                  }
-                >
-                  Inventory
-                </li>
-                <li
-                  onClick={() =>
-                    handleApplyCategoryFilter("accessories", "Accessories")
-                  }
-                >
-                  Accessories
-                </li>
+                {
+                  allCategories.map((category, i)=>{
+                    return <li
+                              onClick={() =>
+                                handleApplyCategoryFilter(category.name, category.name)
+                              }
+                            >
+                              {category.name}
+                            </li>
+                  })
+                }
                 <li
                   onClick={() =>
                     handleApplyCategoryFilter("", "All Categories")
@@ -222,7 +245,7 @@ function ProductListing() {
         </div>
       </div>
       <ProductList
-        products={allProducts}
+        products={searchedProducts}
         categoryFilter={categoryFilter}
         isFilter={isFilter}
         priceFilterValue={priceFilterValue}

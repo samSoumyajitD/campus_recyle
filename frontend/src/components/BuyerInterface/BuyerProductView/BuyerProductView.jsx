@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import './BuyerProductView.css';
-import { Trophy, Flame, Flower2, Sparkle, GraduationCap, Briefcase, Plus, Minus } from 'lucide-react';
+import { Trophy, Flame, Flower2, Sparkle, GraduationCap, Briefcase, Plus, Minus, Share, Box } from 'lucide-react';
 import { apiConnector } from "../../../utils/Apiconnecter";
 import { authroutes } from "../../../apis/apis";
 import { useParams } from 'react-router-dom';
+import { GetContext } from '../../../context/ProductsProvider';
 
-function BuyerProductView(props) {
+function BuyerProductView() {
+    const { product, setProduct } = GetContext();
+
     const [isRequested, setIsRequested] = useState(false);
     const [productQuantity, setProductQuantity] = useState(0);
 
@@ -39,7 +42,7 @@ function BuyerProductView(props) {
 
     const handleChangeProductQuantity = (action) => {
         if(action === "inc"){
-            if(productQuantity+1 > props.product.quantity) return;
+            if(productQuantity+1 > product.quantity) return;
             setProductQuantity(productQuantity+1);
         }else{
             if(productQuantity-1 < 0) return;
@@ -60,8 +63,8 @@ function BuyerProductView(props) {
             };
             const bodyData = {
                 buyername: buyerEmail,
-                selleremail: props.product.owner.email,
-                productid: props.product._id,
+                selleremail: product.owner.email,
+                productid: product._id,
                 quantity: productQuantity
             }
             const response = await apiConnector("POST", authroutes.PRODUCT_REQUEST, bodyData, api_header);
@@ -75,47 +78,72 @@ function BuyerProductView(props) {
           }
     }
 
+    const fetchProductDetails = async () => {
+        try {
+          const api_header = {
+            Authorization: `Bearer ${localStorage.getItem("campusrecycletoken")}`,
+            "Content-Type": "multipart/form-data",
+          };
+          const bodyData = {
+            productid: productid,
+          };
+          const response = await apiConnector(
+            "POST",
+            authroutes.GET_PRODUCT_DETAILS,
+            bodyData,
+            api_header
+          );
+          console.log(response.data);
+          if (response.data.success) {
+            setProduct(response.data.data);
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      };
+
     useEffect(()=>{
+        if(!product){
+            fetchProductDetails();
+        }
+
         fetchAllProductrequests();
     }, []);
   return (
     <div className='buyer-product-view'>
         <div className='buyer-product-view-container'>
-            <h3>{props.product && props.product.productname}</h3>
+            <h3>{product && product.productname}</h3>
             <div className='buyer-product-view-container-product-image'>
                 <div className='buyer-product-view-container-product-image-main'>
-                    <img src={props.product && props.product.images[0]} alt="" />
+                    <img src={product && product.images[0]} alt="" />
                 </div>
                 <div className='buyer-product-view-container-product-image-secondary-first'>
-                    <img src={props.product && props.product.images[1]} alt="" />
-                    <img src={props.product && props.product.images[2]} alt="" />
+                    <img src={product && product.images[1]} alt="" />
+                    <img src={product && product.images[2]} alt="" />
                 </div>
                 <div className='buyer-product-view-container-product-image-secondary-second'>
-                    <img className='img-1' src={props.product && props.product.images[3]} alt="" />
-                    <img className='img-2' src={props.product && props.product.images[4]} alt="" />
+                    <img className='img-1' src={product && product.images[3]} alt="" />
+                    <img className='img-2' src={product && product.images[4]} alt="" />
                 </div>
             </div>
             <div className='buyer-product-view-container-product-details'>
                 <div className="buyer-product-view-container-product-details-info">
-                    <div className="description">
-                        {props.product && props.product.productdescription}
-                    </div>
                     <div className="seller-account">
                         <div className="profile-picture">
                             <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" alt="" />
                         </div>
                         <div className="profile-desc">
-                            <h6>Selling from {props.product && props.product.owner.firstname} {props.product && props.product.owner.lastname}</h6>
-                            <p>{props.product && props.product.owner.accounttype}</p>
+                            <h6>Selling from {product && product.owner.firstname} {product && product.owner.lastname}</h6>
+                            <p>Seller</p>
                         </div>
                     </div>
                     <div className="product-perks">
                         <div className="icon">
-                            <Trophy />
+                            <Box />
                         </div>
                         <div className="perk-info">
-                            <h6>Witness the Opening Ceremony of the Olympic Games</h6>
-                            <p>Be a part of history as the celebration passes on the iconic Seine River.</p>
+                            <h6>All your college necessities are right here</h6>
+                            <p>No need to search anywhere else!.</p>
                         </div>
                     </div>
                     <div className="product-perks">
@@ -123,17 +151,17 @@ function BuyerProductView(props) {
                             <Flame />
                         </div>
                         <div className="perk-info">
-                            <h6>Explore the private garden terrace</h6>
-                            <p>View my Permanent Flame sculpture and the Olympic Torch of Paris 2024.</p>
+                            <h6>Anyone can be both a buyer and a seller!</h6>
+                            <p>Join us in our recycling initiative.</p>
                         </div>
                     </div>
                     <div className="product-perks">
                         <div className="icon">
-                            <Flower2 />
+                            <Share />
                         </div>
                         <div className="perk-info">
-                            <h6>Pluck and sip with our edible garden wall</h6>
-                            <p>Pick an assortment of flowers to craft your own unique aperitif.</p>
+                            <h6>Share with friends</h6>
+                            <p>Help them to find what they need and support sustainable choices.</p>
                         </div>
                     </div>
                     <div className="product-perks">
@@ -141,50 +169,39 @@ function BuyerProductView(props) {
                             <Sparkle />
                         </div>
                         <div className="perk-info">
-                            <h6>Create your own memory orb!</h6>
-                            <p>Design an orb to store your core memory – and then take it home with you!</p>
+                            <h6>Give your unused items a new purpose</h6>
+                            <p>let’s reduce waste together. Turn clutter into cash while contributing to a greener campus!</p>
                         </div>
                     </div>
                     <div className="what-will-you-do">
+                        <h6>Product Description</h6>
+                        <p>{product && product.productdescription}</p>
+
                         <h6>What you’ll do</h6>
-                        <p>Formerly a railway station in the heart of Paris, the Musée d’Orsay is now one of the finest museums in the world. And in anticipation of the Opening Ceremony of the Olympic Games, its 5th-floor terrace has been transformed under my creative direction, providing an atmosphere as unique as Paris itself. In fact, at the entrance of the terrace, you will discover a floor that evokes the calm flow of the Seine’s waters. I hope you enjoy the space as much as I enjoyed bringing it to life.</p>
-                        <p>On top of the many features I’ve curated, the terrace will offer unparalleled views of the Ceremony, the Seine and the city. Soak it in. Paris is a masterpiece unto itself. </p>
-                        <p>• Keep your eyes peeled as you enter the terrace. I’ve displayed this year’s Olympic torch, which I had the pleasure of designing, for you to see up close.</p>
-                        <p>• Follow the Seine-inspired water-like flooring to the tasting bar, where you can experience the artistry of Margot Lecarpentier – once dubbed Paris’s “Most Influential Bartender”.</p>
-                        <p>• Select any number of ingredients from our edible garden wall to craft fragrant, France-inspired refreshments. Santé!</p>
-                        <p>• As Paris kicks off the Olympic Games, watch from high above as the Opening Ceremony floats by on the Seine. The sights and sounds are bound to enthral, inspire and uplift.</p>
-                        <p>• Once the ceremony passes, the music can begin. Paris-based art collective 99GINGER will provide the soundtrack to a celebration of love, peace, unity and France itself.</p>
+                        <p>If you want a particular item, select the item and click on the "Request" button to add it to your list. After verification, we will confirm your order.</p>
+                        <p>The product will be delivered within 2-3 working days. Payment can be made either online or in person at the time of delivery. </p>
+                        <p>You can cancel your order anytime by removing your request from the "Orders" section.</p>
+                        <p>Make sure the product is in the same condition as described on the page.</p>
                     </div>
                     <div className="meet-your-seller">
                         <h5>Meet your seller</h5>
                         <div className="card">
                             <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" alt="" />
-                            <h5>{props.product && props.product.owner.firstname} {props.product && props.product.owner.lastname}</h5>
-                            <p>{props.product && props.product.owner.accounttype}</p>
+                            <h5>{product && product.owner.firstname} {product && product.owner.lastname}</h5>
+                            <span>Seller</span>
+                            <span>email: {product && product.owner.email}</span>
                         </div>
-                        <div className="seller-about">
-                            <div className="icon">
-                                <GraduationCap />
-                            </div>
-                            <p>Education: 2nd Year, ECE</p>
-                        </div>
-                        <div className="seller-about">
-                            <div className="icon">
-                                <Briefcase />
-                            </div>
-                            <p>Position: President, E-Cell</p>
-                        </div>
-                        <p>Hello, I’m Mathieu Lehanneur, a French multidisciplinary designer. I create furniture, objects and spaces that blend design, art, nature and science. I believe in magic and wonder, and I always strive to imbue everything with the power to surprise us.</p>
+                        {/* <p>Hello, I’m Mathieu Lehanneur, a French multidisciplinary designer. I create furniture, objects and spaces that blend design, art, nature and science. I believe in magic and wonder, and I always strive to imbue everything with the power to surprise us.</p> */}
                     </div>
                 </div>
                 <div className="buyer-product-view-container-product-details-request">
                     <div className="price-card">
                         <h5>
-                            &#x20B9;{props.product && props.product.price} Per Product
+                            &#x20B9;{product && product.price} Per Product
                         </h5>
-                        <p>{props.product && props.product.quantity} left - {props.product && props.product.status}</p>
+                        <p>{product && product.quantity} left - {product && product.status}</p>
                         <div className='quantity-input'>
-                            <span className={`quantity-input-btn-plus ${productQuantity+1 > (props.product && props.product.quantity) ? 'disabled' : ''}`} onClick={()=>handleChangeProductQuantity("inc")} >
+                            <span className={`quantity-input-btn-plus ${productQuantity+1 > (product && product.quantity) ? 'disabled' : ''}`} onClick={()=>handleChangeProductQuantity("inc")} >
                                 <Plus/>
                             </span>
                             <span className='quantity-input-counter'>
