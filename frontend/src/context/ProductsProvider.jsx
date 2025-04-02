@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useState } from "react";
 import axios from "axios";
 
 const ProductContext = createContext(null);
@@ -14,7 +14,7 @@ export const ProductProvider = (props) => {
 
   const getAllProducts = async() => {
     try {
-      const response = await axios.post('https://nitaspace.onrender.com/api/v1/product/getallproduct', {
+      const response = await axios.post('http://localhost:4000/api/v1/product/getallproduct', {
         headers: { Authorization: `Bearer ${localStorage.getItem('campusrecycletoken')}` }
       });
       // console.log(response.data.data);

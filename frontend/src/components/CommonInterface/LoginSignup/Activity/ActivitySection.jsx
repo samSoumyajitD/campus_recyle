@@ -268,7 +268,7 @@ function ActivitySection() {
               {/* Captcha */}
               <HCaptcha
                 // sitekey={process.env.CAPTCHA_SITEKEY}
-                sitekey="979e4300-1752-49e6-8e58-1388e9befe64"
+                sitekey="342a82a4-2f5c-4348-942e-999cd9eccc3a"
                 onVerify={recaptchaOnchangeRegister}
               />
               <p className="login-signup-error-msg">{errorMsg.type === 'Captcha not verified while registration' ? errorMsg.msg : ''}</p>
