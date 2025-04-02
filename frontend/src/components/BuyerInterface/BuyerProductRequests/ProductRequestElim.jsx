@@ -5,6 +5,21 @@ import { authroutes } from "../../../apis/apis";
 import Spinner from "react-bootstrap/Spinner";
 
 function ProductRequestElim({ request, handleDeleteProductRequest }) {
+  const numToMonthMap = new Map([
+    [1, "Jan"],
+    [2, "Feb"],
+    [3, "Mar"],
+    [4, "Apr"],
+    [5, "May"],
+    [6, "Jun"],
+    [7, "Jul"],
+    [8, "Aug"],
+    [9, "Sep"],
+    [10, "Oct"],
+    [11, "Nov"],
+    [12, "Dec"]
+  ]);
+
   const [isScheduled, setIsScheduled] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [scheduleData, setScheduleData] = useState(null);
@@ -331,7 +346,7 @@ function ProductRequestElim({ request, handleDeleteProductRequest }) {
                     </div>
                     <div>
                       <b>Requested on </b>
-                      <p>{request.requestdate} </p>
+                      <p>{new Date(request.requestdate).getDate()}-{numToMonthMap.get(new Date(request.requestdate).getMonth()+1)}-{new Date(request.requestdate).getFullYear()} </p>
                     </div>
                   </div>
                 </div>
@@ -359,6 +374,12 @@ function ProductRequestElim({ request, handleDeleteProductRequest }) {
                   >
                     Delete
                   </button>
+                  <button
+                    type="button"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                    style={{ backgroundColor: 'black' }}
+                  >Close</button>
                 </div>
               </div>
             </div>

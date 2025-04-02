@@ -10,8 +10,9 @@ function ProductView() {
   const context = GetContext();
   const {
     allProducts,
+    setProduct
   } = context;
-  const [product, setProduct] = useState(null);
+
   useEffect(()=>{
     if(!localStorage.getItem('campusrecycletoken')){
       navigate('/');
@@ -26,7 +27,7 @@ function ProductView() {
   return (
     <>
         <BuyerNavbar/>
-        <BuyerProductView product={product}/>
+        <BuyerProductView />
     </>
   )
 }

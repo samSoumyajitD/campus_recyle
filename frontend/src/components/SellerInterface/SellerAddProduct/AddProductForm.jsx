@@ -3,7 +3,7 @@ import "./AddProductFrom.css";
 import Spinner from "react-bootstrap/Spinner";
 import { apiConnector } from "../../../utils/Apiconnecter";
 import { authroutes } from "../../../apis/apis";
-import { Cross, X } from "lucide-react";
+import { X } from "lucide-react";
 
 function AddProductForm() {
   const [isLoading, setIsLoading] = useState(false);
@@ -43,6 +43,7 @@ function AddProductForm() {
   }
 
   const handleOnChange = (e) => {
+    console.log(e.target.value)
     setAddProductData({ ...addProductData, [e.target.name]: e.target.value });
   };
 
@@ -66,6 +67,7 @@ function AddProductForm() {
     }
     
     try {
+      console.log(addProductData)
       const api_header = { 
         Authorization: `Bearer ${localStorage.getItem('campusrecycletoken')}`,
         "Content-Type": "multipart/form-data"
@@ -141,16 +143,6 @@ function AddProductForm() {
               />
             </div>
             <div className="form-segment">
-              <label htmlFor="productdescription">Product Description</label>
-              <input
-                type="text"
-                id="productdescription"
-                name="productdescription"
-                value={addProductData.productdescription}
-                onChange={handleOnChange}
-              />
-            </div>
-            <div className="form-segment">
               <label htmlFor="price">Price</label>
               <input
                 type="number"
@@ -170,9 +162,9 @@ function AddProductForm() {
                 value={addProductData.status}
                 onChange={handleOnChange}
               >
-                <option value="For sale">For sale</option>
-                <option value="On hold">On hold</option>
-                <option value="Arriving soon">Arriving soon</option>
+                <option value="Forsale">Forsale</option>
+                <option value="Sold">Sold</option>
+                <option value="Purchased">Purchased</option>
               </select>
             </div>
             <div className="form-segment">
@@ -192,15 +184,29 @@ function AddProductForm() {
                 name="categoryid"
                 value={addProductData.categoryid}
                 onChange={handleOnChange}
+                required
               >
+                <option>Select category</option>
                 {
                   allCategories.map((category, i)=>{
-                    return <option value={category.id}>{category.name}</option>
+                    return <option value={category._id}>{category.name}</option>
                   })
                 }
               </select>
             </div>
           </div>
+        </div>
+        <div className="form-block-text">
+          <label htmlFor="productdescription">Product Description</label>
+          <textarea
+            type="text"
+            rows={10}
+            cols={10}
+            id="productdescription"
+            name="productdescription"
+            value={addProductData.productdescription}
+            onChange={handleOnChange}
+          />
         </div>
         <div className="add-product-form-attachments">
           <div>

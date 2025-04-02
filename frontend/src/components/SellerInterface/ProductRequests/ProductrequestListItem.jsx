@@ -18,7 +18,7 @@ function ProductrequestListItem({ request, handleDeleteProductRequest }) {
     [10, "Oct"],
     [11, "Nov"],
     [12, "Dec"]
-  ])
+  ]);
 
   const [isScheduled, setIsScheduled] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -421,6 +421,11 @@ function ProductrequestListItem({ request, handleDeleteProductRequest }) {
                 </div>
                 <div className="schedule-data-view-buttons">
                   <button data-bs-dismiss="modal" onClick={handleDeleteSchedule}>Delete</button>
+                  <button
+                    type="button"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  >Close</button>
                 </div>
               </div>
             </div>

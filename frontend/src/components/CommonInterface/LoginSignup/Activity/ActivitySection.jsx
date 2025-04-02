@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Carousel from "react-bootstrap/Carousel";
 import { Eye } from 'lucide-react';
 import Spinner from "react-bootstrap/Spinner";
-import ReCAPTCHA from "react-google-recaptcha";
+import HCaptcha from '@hcaptcha/react-hcaptcha';
 
 import { authroutes } from "../../../../apis/apis";
 import { apiConnector } from "../../../../utils/Apiconnecter";
@@ -266,10 +266,10 @@ function ActivitySection() {
               </div>
               <p className="login-signup-error-msg">{!passMatched && 'Password not matched'}</p>
               {/* Captcha */}
-              <ReCAPTCHA
-                sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
-                // sitekey={`${process.env.CAPTCHA_SITEKEY}`}
-                onChange={recaptchaOnchangeRegister}
+              <HCaptcha
+                // sitekey={process.env.CAPTCHA_SITEKEY}
+                sitekey="342a82a4-2f5c-4348-942e-999cd9eccc3a"
+                onVerify={recaptchaOnchangeRegister}
               />
               <p className="login-signup-error-msg">{errorMsg.type === 'Captcha not verified while registration' ? errorMsg.msg : ''}</p>
               <button type="submit" className={`${passMatched ? '' : 'btn-disabled'} ${loading ? 'btn-disabled' : ''}`} disabled={!passMatched}>Sign Up {loading && <Spinner className="login-signup-btn-spinner" size="sm" animation="border" />}</button>
@@ -313,10 +313,10 @@ function ActivitySection() {
             </div>
             <p className="login-signup-error-msg">{errorMsg.type === 'wrong password' ? errorMsg.msg : ''}</p>
             {/* Captcha */}
-            <ReCAPTCHA
-              sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"
-              // sitekey={`${process.env.CAPTCHA_SITEKEY}`}
-              onChange={recaptchaOnchange}
+            <HCaptcha
+              // sitekey={process.env.CAPTCHA_SITEKEY}
+              sitekey="979e4300-1752-49e6-8e58-1388e9befe64"
+              onVerify={recaptchaOnchange}
             />
             <p className="login-signup-error-msg">{errorMsg.type === 'Captcha not verified' ? errorMsg.msg : ''}</p>
             <Link to='/forgotpassword'>Forgot your password?</Link>
